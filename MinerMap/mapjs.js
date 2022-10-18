@@ -5,11 +5,32 @@ const UNCC_BOUNDS = {
     east: -80.724543,
 };
 
+var styles = [
+        {
+            "featureType": "poi",
+            "stylers": [
+                { "visibility": "off" }
+            ]
+        },{
+            "featureType": "poi",
+            "stylers": [
+                { "visibility": "off" }
+            ]
+        },{
+            "featureType": "transit",
+            "stylers": [
+                { "visibility": "off" }
+            ]
+        }
+    ]
+;
+
 function initMap() {
     // The location of uncc
     const uncc = { lat: 35.3071, lng: -80.7352 };
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 17,
+        minZoom: 17 - 0.8,
         center: uncc,
         disableDefaultUI: true,
         restriction: {
@@ -17,7 +38,11 @@ function initMap() {
             strictBounds: false,
         },
         zoomControl: true,
+        styles: styles,
+
+
     });
+
 
 
 }
