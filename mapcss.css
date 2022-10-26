@@ -4,4 +4,16 @@
 
     width: 100%;
 
+    display: inline-block;
+
+}
+
+.customDateTime{
+    position: absolute;
+    z-index: 100;
+    
+}
+
+.mapContainer{
+    z-index: 0;
 }

@@ -1,3 +1,19 @@
+window.onload = function(){
+    //on date time selection refresh the entire map
+    document.getElementById("dateTime").onchange = mapRefresh;
+}
+
+//for testing stuff dont touch please - Elvis
+var x = 1 
+function testFunction(){
+    x += 1;
+    console.log(x);
+    var testDate = document.dtSelection.dateTime.value;
+    console.log(testDate);
+    
+    
+}
+
 const UNCC_BOUNDS = {
     north: 35.315700,
     south: 35.299345,
@@ -50,9 +66,11 @@ let buildingHashTable = {
     */
 }
 
-console.log(buildingHashTable.ATKINS);
+//these are the variables that will be modified as the user selects time and date
+var currentFilePath;
+var currentHour;
 var myList = [];
-
+var heatMapPoints = [];
 let temp;
 let tempString;
 //the idea is too set the cordinates in a map and the amounts in a map that will be refreshed on day change or hour change
@@ -78,8 +96,8 @@ cordinateMapY.set(buildingHashTable.STUDENTUNION, -80.73375791517492);
 async function getData(jsonFile, hour){
 
 //fetching json file and parsing information to  myList, testvar is basically the foot traffic for the hour passed 
-const re = await fetch(jsonFile);
-const tempJson = await re.json();
+let re = await fetch(jsonFile);
+let tempJson = await re.json();
 for(let iso of tempJson){
     //console.log(iso);
     tempString =  JSON.stringify(iso);
@@ -134,20 +152,21 @@ for (var prop in buildingHashTable){
     
 }
 
-console.log(buildingWeight);
+console.log("getData DONE");
 
 }
 
-//since getData is asynchronous, we use a then function to initiate the map
-getData("test3.json", 0).then(window.initMap = initMap);
+
+mapRefresh();
+
 //reminder on hour/time change the building weight and map needs to be refreshed to do tommorow 10/26
 
 
 function initMap() {
     
    
-
-    var heatMapPoints = [];
+    console.log("INIT MAP start");
+  
 
     //adding the locations to the heatmap points based on the buildings in the building hash table
     for (var prop in buildingHashTable){
@@ -163,7 +182,7 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 17,
         minZoom: 17 - 0.8,
-
+        
         center: uncc,
         disableDefaultUI: true,
         restriction: {
@@ -183,13 +202,38 @@ function initMap() {
     heatmap.setMap(map);
     heatmap.set("radius", heatmap.get("radius") ? null : 25);
 
-
+   console.log("INIT MAP DONE");
+    
 }
 
 
+//for some reason substr pulls the time all togethjer when substr, to get it we first substr the time to its own var then substr it again
+/*
+
+var testDate = document.dtSelection.dateTime.value;
+console.log(testDate.substr(0,10));
+var testType = testDate.substr(11);
+console.log(testType.substr(0,2));
+console.log(testDate.substr(11,11));
+console.log(typeof +testType);
+console.log(+"09");
+*/
+
+//this resets variables and refreshes the actual map
+function mapRefresh(){
+    //outputting initial time and file path
+    //remember to clear aoutomated list: map points, weights
+    myList = [];
+    heatMapPoints = [];
+    buildingWeight.clear();
+    currentFilePath = "jsons/" + document.dtSelection.dateTime.value.substr(0,10) + ".json";
+    currentHour = (document.dtSelection.dateTime.value.substr(11,11).substr(0,2));
+    console.log("FilePath: ", currentFilePath, (document.dtSelection.dateTime.value.substr(11,11).substr(0,2)));
+
+    //since getData is asynchronous, we use a then function to initiate the map
+    getData(currentFilePath, +currentHour).then(window.initMap = initMap);
+    
 
 
 
-    
-    
-    
+}

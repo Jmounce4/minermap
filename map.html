@@ -9,14 +9,25 @@
   <script type="module" src="./mapjs.js"></script>
 </head>
 <body>
-<a href="test3.csv" id="testLink"></a>
-<div id="map"></div>
+  
+<div class="customDateTime">
+  <form id="dtSelection" name="dtSelection">
+   
+    <input type="datetime-local" name="dateTime" id="dateTime" min="2020-08-20T00:00" max="2021-09-229T23:00" class="customDateTime" value="2020-10-08T00:00">
 
+  </form>
+</div>
+
+<div id="map">
 
 
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxCTi5Ty5oUmjVk6dHqAmvgIs5Qw-ApXg&callback=initMap&libraries=visualization&v=weekly"
         defer
-></script>
+class="mapContainer"></script>
+</div>
+
+
+
 </body>
 </html>
