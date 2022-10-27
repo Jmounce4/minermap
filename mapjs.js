@@ -61,6 +61,27 @@ let buildingHashTable = {
     BIOINFORMATICS: "Bioi",
     COED: "CoEd",
     CONE: "Cone"
+
+    /*
+
+    FRETWELL: "Fret",
+    PORTAL: "PORT",
+    GRIGG: "Grig",
+    SOVI: "SVDH",
+    CATO: "Cato",
+    CHHS: "Heal",
+    KING: "King",
+    KENNEDY: "Kenn",
+    ROWE: "Rowe",
+    MCENIRY: "McEn",
+    FRIDAY: "Frid",
+    BARNARD: "Barn",
+    MACY: "Macy",
+    GARINGER: "Gari",
+    WINNINGHAM: "Winn",
+    ROBINSON: "Robi",
+    STORRS: "Stor"
+    */
     
 }
 
@@ -104,8 +125,8 @@ cordinateMapX.set(buildingHashTable.WOODWARD, 35.30744822877269);
 cordinateMapY.set(buildingHashTable.WOODWARD, -80.73566633711343);
 cordinateMapX.set(buildingHashTable.BIOINFORMATICS, 35.312679527276934);
 cordinateMapY.set(buildingHashTable.BIOINFORMATICS, -80.74201738001688);
-cordinateMapX.set(buildingHashTable.COED, 35.30544754093803);
-cordinateMapY.set(buildingHashTable.COED, -80.7287371846946);
+cordinateMapX.set(buildingHashTable.COED, 35.307575);
+cordinateMapY.set(buildingHashTable.COED, -80.734177);
 cordinateMapX.set(buildingHashTable.CONE, 35.305156834601746);
 cordinateMapY.set(buildingHashTable.CONE, -80.73324174007793);
 
