@@ -60,10 +60,7 @@ let buildingHashTable = {
     WOODWARD: "Wood",
     BIOINFORMATICS: "Bioi",
     COED: "CoEd",
-    CONE: "Cone"
-
-    /*
-
+    CONE: "Cone",
     FRETWELL: "Fret",
     PORTAL: "PORT",
     GRIGG: "Grig",
@@ -81,7 +78,7 @@ let buildingHashTable = {
     WINNINGHAM: "Winn",
     ROBINSON: "Robi",
     STORRS: "Stor"
-    */
+    
     
 }
 
@@ -129,6 +126,40 @@ cordinateMapX.set(buildingHashTable.COED, 35.307575);
 cordinateMapY.set(buildingHashTable.COED, -80.734177);
 cordinateMapX.set(buildingHashTable.CONE, 35.305156834601746);
 cordinateMapY.set(buildingHashTable.CONE, -80.73324174007793);
+cordinateMapX.set(buildingHashTable.FRETWELL, 35.306051269157344);
+cordinateMapY.set(buildingHashTable.FRETWELL, -80.72902588357599);
+cordinateMapX.set(buildingHashTable.PORTAL, 35.31169521548943);
+cordinateMapY.set(buildingHashTable.PORTAL, -80.74298844343465);
+cordinateMapX.set(buildingHashTable.GRIGG, 35.31132178048417);
+cordinateMapY.set(buildingHashTable.GRIGG, -80.74191988409817);
+cordinateMapX.set(buildingHashTable.SOVI, 35.302913717430094);
+cordinateMapY.set(buildingHashTable.SOVI, -80.73485709439822);
+cordinateMapX.set(buildingHashTable.CATO, 35.30774517751554);
+cordinateMapY.set(buildingHashTable.CATO, -80.73374779362989);
+cordinateMapX.set(buildingHashTable.CHHS, 35.30749472169555);
+cordinateMapY.set(buildingHashTable.CHHS, -80.7333877703301);
+cordinateMapX.set(buildingHashTable.KING, 35.30508074951166);
+cordinateMapY.set(buildingHashTable.KING, -80.7325550772337);
+cordinateMapX.set(buildingHashTable.KENNEDY, 35.30598284294199);
+cordinateMapY.set(buildingHashTable.KENNEDY, -80.73092114732545);
+cordinateMapX.set(buildingHashTable.ROWE, 35.30453814104648);
+cordinateMapY.set(buildingHashTable.ROWE, -80.73072976519171);
+cordinateMapX.set(buildingHashTable.MCENIRY, 35.307211693836535);
+cordinateMapY.set(buildingHashTable.MCENIRY, -80.73019154498584);
+cordinateMapX.set(buildingHashTable.FRIDAY, 35.30631631915391);
+cordinateMapY.set(buildingHashTable.FRIDAY, -80.72995964401406);
+cordinateMapX.set(buildingHashTable.BARNARD, 35.3057945900544);
+cordinateMapY.set(buildingHashTable.BARNARD, -80.72992298495707);
+cordinateMapX.set(buildingHashTable.MACY, 35.305704398948556);
+cordinateMapY.set(buildingHashTable.MACY, -80.73038760971932);
+cordinateMapX.set(buildingHashTable.GARINGER, 35.30499575103916);
+cordinateMapY.set(buildingHashTable.GARINGER, -80.73002448065607);
+cordinateMapX.set(buildingHashTable.WINNINGHAM, 35.305143003062035);
+cordinateMapY.set(buildingHashTable.WINNINGHAM, -80.73039212063783);
+cordinateMapX.set(buildingHashTable.ROBINSON, 35.30386202639);
+cordinateMapY.set(buildingHashTable.ROBINSON, -80.72993444303359);
+cordinateMapX.set(buildingHashTable.STORRS, 35.304615566608916);
+cordinateMapY.set(buildingHashTable.STORRS, -80.72915670025833);
 
 //Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
 
