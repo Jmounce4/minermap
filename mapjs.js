@@ -50,8 +50,6 @@ let buildingHashTable = {
     ATKINS: "Atki",
     BELKGYM: "BelG",
     STUDENTUNION: "StuU",
-    /*
-    commenting these out for now, uncomment each one as you add the cordinates and stuff
     BURSON: "Burs",
     CAMERON: "Came",
     DENNY: "Denn",
@@ -63,7 +61,7 @@ let buildingHashTable = {
     BIOINFORMATICS: "Bioi",
     COED: "CoEd",
     CONE: "Cone"
-    */
+    
 }
 
 //these are the variables that will be modified as the user selects time and date
@@ -88,6 +86,28 @@ cordinateMapX.set(buildingHashTable.BELKGYM, 35.30539285658393);
 cordinateMapY.set(buildingHashTable.BELKGYM, -80.73556587697733);
 cordinateMapX.set(buildingHashTable.STUDENTUNION, 35.308733600648736);
 cordinateMapY.set(buildingHashTable.STUDENTUNION, -80.73375791517492);
+cordinateMapX.set(buildingHashTable.BURSON, 35.30755202779894);
+cordinateMapY.set(buildingHashTable.BURSON, -80.73245238202595);
+cordinateMapX.set(buildingHashTable.CAMERON, 35.30766340578566);
+cordinateMapY.set(buildingHashTable.CAMERON, -80.73120876534848);
+cordinateMapX.set(buildingHashTable.DENNY, 35.30540989667834);
+cordinateMapY.set(buildingHashTable.DENNY, -80.72980119011649);
+cordinateMapX.set(buildingHashTable.COLVARD, 35.30485735361828);
+cordinateMapY.set(buildingHashTable.COLVARD, -80.73171867761586);
+cordinateMapX.set(buildingHashTable.DUKE, 35.311968214346244);
+cordinateMapY.set(buildingHashTable.DUKE, -80.74124823312059);
+cordinateMapX.set(buildingHashTable.EPIC, 35.309087539725724);
+cordinateMapY.set(buildingHashTable.EPIC, -80.74159117551818);
+cordinateMapX.set(buildingHashTable.PROSPECTOR, 35.306814202649974);
+cordinateMapY.set(buildingHashTable.PROSPECTOR, -80.73087887288469);
+cordinateMapX.set(buildingHashTable.WOODWARD, 35.30744822877269);
+cordinateMapY.set(buildingHashTable.WOODWARD, -80.73566633711343);
+cordinateMapX.set(buildingHashTable.BIOINFORMATICS, 35.312679527276934);
+cordinateMapY.set(buildingHashTable.BIOINFORMATICS, -80.74201738001688);
+cordinateMapX.set(buildingHashTable.COED, 35.30544754093803);
+cordinateMapY.set(buildingHashTable.COED, -80.7287371846946);
+cordinateMapX.set(buildingHashTable.CONE, 35.305156834601746);
+cordinateMapY.set(buildingHashTable.CONE, -80.73324174007793);
 
 //Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
 
@@ -116,7 +136,6 @@ console.log(testvar);
         tempString =  JSON.stringify(iso);
         temp =  JSON.parse(tempString);
         myList.push(iso);
-
     }
    
    
@@ -127,17 +146,13 @@ console.log(testvar);
     console.log(testvar);
     
     //console.log(testvar.Atki);
-
     //here we add the hour foot traffic to the weight table building name: weight
    
     
 }
     );
-
-
     //loop for object properties, can prob use to loop through buildings in the building hash table as well
     for (var prop in testvar){
-
 }
     */
 
@@ -209,7 +224,6 @@ function initMap() {
 
 //for some reason substr pulls the time all togethjer when substr, to get it we first substr the time to its own var then substr it again
 /*
-
 var testDate = document.dtSelection.dateTime.value;
 console.log(testDate.substr(0,10));
 var testType = testDate.substr(11);
