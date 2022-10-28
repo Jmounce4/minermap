@@ -8,6 +8,13 @@
 
 }
 
+.image {
+    position: absolute;
+    right: 60px;
+    z-index: 100;
+  
+}
+
 .customDateTime{
     position: absolute;
     z-index: 100;

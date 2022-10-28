@@ -65,7 +65,7 @@ let buildingHashTable = {
     PORTAL: "PORT",
     GRIGG: "Grig",
     SOVI: "SVDH",
-    CATO: "Cato",
+    //CATO: "Cato",
     CHHS: "Heal",
     KING: "King",
     KENNEDY: "Kenn",
@@ -79,6 +79,7 @@ let buildingHashTable = {
     ROBINSON: "Robi",
     STORRS: "Stor"
     
+//CATO is placing markers in wrong area, just keep CoEd
     
 }
 
@@ -134,8 +135,8 @@ cordinateMapX.set(buildingHashTable.GRIGG, 35.31132178048417);
 cordinateMapY.set(buildingHashTable.GRIGG, -80.74191988409817);
 cordinateMapX.set(buildingHashTable.SOVI, 35.302913717430094);
 cordinateMapY.set(buildingHashTable.SOVI, -80.73485709439822);
-cordinateMapX.set(buildingHashTable.CATO, 35.30774517751554);
-cordinateMapY.set(buildingHashTable.CATO, -80.73374779362989);
+//cordinateMapX.set(buildingHashTable.CATO, 35.30774517751554);
+//cordinateMapY.set(buildingHashTable.CATO, -80.73374779362989);
 cordinateMapX.set(buildingHashTable.CHHS, 35.30749472169555);
 cordinateMapY.set(buildingHashTable.CHHS, -80.7333877703301);
 cordinateMapX.set(buildingHashTable.KING, 35.30508074951166);
