@@ -162,6 +162,8 @@ cordinateMapY.set(buildingHashTable.ROBINSON, -80.72993444303359);
 cordinateMapX.set(buildingHashTable.STORRS, 35.304615566608916);
 cordinateMapY.set(buildingHashTable.STORRS, -80.72915670025833);
 
+
+
 //Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
 
 
@@ -271,7 +273,34 @@ function initMap() {
     heatmap.set("radius", heatmap.get("radius") ? null : 25);
 
    console.log("INIT MAP DONE");
-    
+
+
+    const StuUString = '<h1> Student Union </h1>' +
+        '<p>Average Hourly Traffic: ? </p>' +
+            '<p>Busiest Hours: ?</p>' +
+        '<p>Building Use: Student Services</p>' +
+            '<p>Address: 8845 Craver RD, Charlotte NC 28223 </p>'
+
+        ;
+
+    const StuUwindow = new google.maps.InfoWindow({
+        content: StuUString,
+        ariaLabel: "StuU",
+    });
+    const image1 = "uncclogo2.png";
+   const StuUMarker = new google.maps.Marker({
+       position: {lat: 35.308863486369354, lng: -80.7337370128158},
+       map,
+       icon: image1,
+   })
+
+    StuUMarker.addListener("click", () => {
+        StuUwindow.open({
+            anchor: StuUMarker,
+            map,
+        });
+
+    });
 }
 
 
