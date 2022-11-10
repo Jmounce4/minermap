@@ -1,5 +1,6 @@
 
 #map {
+    z-index: 1;
     height: 100%;
 
     width: 100%;
@@ -12,15 +13,111 @@
     position: absolute;
     right: 60px;
     z-index: 100;
+    
   
 }
 
 .customDateTime{
-    position: absolute;
+    position: relative;
     z-index: 100;
+    
     
 }
 
 .mapContainer{
     z-index: 0;
+}
+
+.options{
+    position: absolute;
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+}
+
+
+
+#menuButton{
+  z-index: 2;
+}
+
+.infoDiv{
+    position: relative;
+    background-color: green;
+    z-index: 101;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content:safe;
+    overflow-y: auto;
+    height: 80vh;
+    width: 50vw;
+    font-size: medium;
+    
+}
+
+.rowDiv{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    border: solid black 1px;
+    
+    
+    
+}
+
+
+.topDiv{
+    z-index: 101;
+    background-color: green;
+}
+
+.infoContainer{
+    position: relative;
+    width: 12%;
+}
+
+.exitContainer{
+    background-color: black;
+    border: transparent;
+    color: wheat;
+    font-size: large;
+    z-index: 1000;
+}
+
+#exitButtonMain{
+    position: relative;
+    border: solid 1px gold;
+    background-color: green;
+    color: white;
+    width: 6vw;
+    transition: all ease-in-out .5s;
+
+    
+}
+
+#exitButtonMain:hover{
+    scale: 1.1;
+    
+}
+
+.optionsSelection{
+    border: solid green 1px;
+}
+
+.optionsSelection:hover{
+    background-color: rgb(97, 88, 87, 0.2);
+    
+}
+
+.multiActionBar{
+    position: absolute;
+    
+    right: 40%;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    
 }

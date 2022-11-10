@@ -7,24 +7,71 @@
   <script type="text/javascript" src="papaparse.min.js"></script>
   <script src="jquery-csv.js"></script>
   <script type="module" src="./mapjs.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="scotch-panels-master/dist/scotchPanels.js"></script>
+
+ 
   
-  <div class="image">
-    <img src = "legend.jpg" alt = "Map Key">
-  </div>
   
 </head>
 <body>
   
-<div class="customDateTime">
-  <form id="dtSelection" name="dtSelection">
-   
-    <input type="datetime-local" name="dateTime" id="dateTime" min="2020-08-20T00:00" max="2021-09-229T23:00" class="customDateTime" value="2020-10-08T00:00">
+  <div id="menuContainer">
+    <!--can use the toggle panel class to open and close menus-->
+    <div class="toggle-panel">
+      <form action=""><input id="exitButtonMain" type="button" value="Exit"></form>
+      
+    </div>
+    
+    <div>
+      <h1 id="testClick" class="toggle-panel optionsSelection">Foot Traffic in Depth Information</h1>
+    </div>
+    <div>
+      <h1 id="restaurantClick" class="toggle-panel optionsSelection">Restaurants</h1>
+    </div>
+  </div>
 
-  </form>
+ 
+
+
+<div class="options">
+
+
+  
+  <a href="#" id="menuButton" class="toggle-panel">Options</a>
+  <div class="customDateTime">
+    <form id="dtSelection" name="dtSelection">
+     
+      <input type="datetime-local" name="dateTime" id="dateTime" min="2020-08-20T00:00" max="2021-09-229T23:00" class="customDateTime" value="2020-10-08T00:00">
+  
+    </form>
+   
+  </div>
+ 
+  <!--This div is filled by JavaScript function do not touch-->
+  <div class="infoDiv" id="infoDiv">
+   
+    
+  </div>
+
+  
+  
+</div>
+
+<div class="multiActionBar">
+  <div><form action=""><input id="gradientButton" type="button" value="Color"></form></div>
+  <div><form action=""><input id="restaurantsButton" type="button" value="Restaurants"></form></div>
+  
+  
+
+
+</div>
+<div class="image">
+  <img src = "legend.jpg" alt = "Map Key">
 </div>
 
 <div id="map">
-
+  
     
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxCTi5Ty5oUmjVk6dHqAmvgIs5Qw-ApXg&callback=initMap&libraries=visualization&v=weekly"

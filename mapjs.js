@@ -1,7 +1,25 @@
-window.onload = function(){
+$(document).ready(function(){
     //on date time selection refresh the entire map
     document.getElementById("dateTime").onchange = mapRefresh;
-}
+    $("#gradientButton").click(function(){
+        changeGradient();
+        console.log("color button clicked");
+    });
+
+    $(".infoDiv").hide();
+    $("#testClick").click(function(){
+        $(".infoDiv").show();
+        //$(".infoDiv").css("width", $("#menuContainer").width())
+        fillList();
+    });
+    $("#restaurantClick").click(function(){
+        $(".infoDiv").show();
+        //$(".infoDiv").css("width", $("#menuContainer").width())
+        fillRestaurantList();
+    });
+
+    
+});
 
 //for testing stuff dont touch please - Elvis
 var x = 1 
@@ -42,6 +60,30 @@ var styles = [
         }
     ]
 ;
+
+//Restaurant hash table
+
+let restaurantHashTable = {
+    CHICKFILA: {BUILDING: "PROSPECTOR", NAME: "Chick-Fil-A"},
+    WENDYS: {BUILDING: "STUDENTUNION", NAME: "Wendy's"},
+    Bojangles: {BUILDING: "STUDENTUNION", NAME: "Bojangles"},
+    CROWNS: {BUILDING: "STUDENTUNION", NAME: "Crowns Commons"},
+    STARBUCKS: {BUILDING: "STUDENTUNION", NAME: "Starbucks"},
+    SALSARITAS: {BUILDING: "PROSPECTOR", NAME: "Salsarita's"},
+    MAMMA: {BUILDING: "PROSPECTOR", NAME: "Mamma Leone's"},
+    Sushi: {BUILDING: "PROSPECTOR", NAME: "Sushi with Gusto"},
+    BURGER: {BUILDING: "PROSPECTOR", NAME: "Burger 704"},
+    SOVI: {BUILDING: "SOVI", NAME: "SoVi"},
+    PANDA: {BUILDING: "CONE", NAME: "Panda Express"},
+    SUBWAY: {BUILDING: "CONE", NAME: "Subway"},
+
+
+
+
+
+
+
+}
 
 //Object Hash Table of buildings to their abbreviation to use in code and prevent confusion, buildings in all caps
 
@@ -223,6 +265,7 @@ for (var prop in buildingHashTable){
 }
 
 console.log("getData DONE");
+//await findBusiestTime(x);
 
 }
 
@@ -231,7 +274,7 @@ mapRefresh();
 
 //reminder on hour/time change the building weight and map needs to be refreshed to do tommorow 10/26
 
-
+let heatmap;
 function initMap() {
     
    
@@ -265,7 +308,7 @@ function initMap() {
 
     });
 
-    var heatmap = new google.maps.visualization.HeatmapLayer({
+    /*var*/ heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapPoints
     });
 
@@ -316,7 +359,7 @@ console.log(+"09");
 */
 
 //this resets variables and refreshes the actual map
-function mapRefresh(){
+async function mapRefresh(){
     //outputting initial time and file path
     //remember to clear aoutomated list: map points, weights
     myList = [];
@@ -327,9 +370,210 @@ function mapRefresh(){
     console.log("FilePath: ", currentFilePath, (document.dtSelection.dateTime.value.substr(11,11).substr(0,2)));
 
     //since getData is asynchronous, we use a then function to initiate the map
-    getData(currentFilePath, +currentHour).then(window.initMap = initMap);
+    getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList);
+
     
 
 
-
 }
+
+ $('#menuContainer').scotchPanel({
+    containerSelector: 'body', // As a jQuery Selector
+    direction: 'left', // Make it toggle in from the left
+    duration: 300, // Speed in ms how fast you want it to be
+    transition: 'ease', // CSS3 transition type: linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(P1x,P1y,P2x,P2y)
+    clickSelector: '.toggle-panel', // Enables toggling when clicking elements of this class
+    distanceX: '30%', // Size fo the toggle
+    enableEscapeKey: true // Clicking Esc will close the panel
+
+
+});
+
+
+
+
+//function will fill out the list using current data
+function fillList(){
+    //$('#infoDiv').html("");
+    $('#infoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
+    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
+    
+    //Looping through buildings map and filling putting the data in the list
+    for (var prop in buildingHashTable){
+        var tempTraffic = "";
+        if(buildingWeight.get(buildingHashTable[prop]) != null ) {
+            tempTraffic = buildingWeight.get(buildingHashTable[prop]) 
+        } else {
+            tempTraffic = 0;
+        } 
+        $('#infoDiv').append(
+            "<div class=rowDiv>" 
+            //building name
+            + "<div class=infoContainer><p class=rowText>" + prop +"</p></div>"
+            //current traffic
+            + "<div class=infoContainer><p class=rowText>" 
+            + tempTraffic
+            +"</p></div>"
+            //busiest time, use temp value for now
+            + "<div class=infoContainer><p class=rowText>" + findBusiestTime(buildingHashTable[prop]) +"</p></div>"
+            //quiestist time
+            +"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[prop]) +"</p></div>"
+            //closing div
+            + "</div>"
+        );
+        
+       
+        
+    }
+
+    $("#exitButton, #menuButton").click(function(){
+        //console.log("Exit Button")
+        $(".infoDiv").hide();
+        
+    });
+  
+}
+
+//function to get key from value in buildings map, x is the current value being used
+function getKey(x){
+    //going to loop through map until we find the value
+    for (var prop in buildingHashTable){
+        if(buildingHashTable[prop] === x){
+            return prop;
+        }
+        //buildingWeight.set(buildingHashTable[prop], testvar[buildingHashTable[prop]]);
+        
+    }
+    return null;
+}
+
+//console.log("TESTING getKey: ", getKey)
+
+//Find the busiest time for for building that day
+function findBusiestTime(building){
+    //to be used as return value
+    var max = 0;
+    var busiestHour;
+    for(var list in myList){
+        //myList[list]: this grabs the the current hour list
+        //next we need to grab each traffic for the current building and then return the max or min
+        //grabbing list for hour
+        let tempHour = myList[list];
+        //grabbing traffic for building at current hour
+        let tempTraffic = tempHour[building];
+        //checking max
+        if(tempTraffic > max){
+            
+            max = tempTraffic;
+            busiestHour = list;
+        }
+    };
+    
+    return busiestHour;
+    
+   
+}
+
+function findQuietistTime(building){
+    //to be used as return value
+    var min = 0;
+    var quietistHour;
+    
+    for(var list in myList){
+        //console.log(list);
+        //myList[list]: this grabs the the current hour list
+        //next we need to grab each traffic for the current building and then return the max or min
+        //grabbing list for hour
+        let tempHour = myList[list];
+        //grabbing traffic for building at current hour
+        let tempTraffic = tempHour[building];
+
+        if(min == 0 ){
+            quietistHour = 0;
+            min = tempTraffic;
+        }
+        
+        //checking min
+        if(tempTraffic < min){
+            
+            min = tempTraffic;
+            quietistHour = list;
+        }
+    };
+    
+    return quietistHour;
+    
+   
+}
+
+//changes color of heatmap points to diffrenent color
+function changeGradient() {
+    //console.log("FunctionRAN")
+    const gradient = [
+      "rgba(0, 255, 255, 0)",
+      "rgba(0, 255, 255, 1)",
+      "rgba(0, 191, 255, 1)",
+      "rgba(0, 127, 255, 1)",
+      "rgba(0, 63, 255, 1)",
+      "rgba(0, 0, 255, 1)",
+      "rgba(0, 0, 223, 1)",
+      "rgba(0, 0, 191, 1)",
+      "rgba(0, 0, 159, 1)",
+      "rgba(0, 0, 127, 1)",
+      "rgba(63, 0, 91, 1)",
+      "rgba(127, 0, 63, 1)",
+      "rgba(191, 0, 31, 1)",
+      "rgba(255, 0, 0, 1)",
+    ];
+    
+    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+  }
+
+  //for restaurants, we will fill the div with restraurants name, building it is in, and same info as other div. need to create a map that connects the restaurant to builing. Restaurant name: full building name
+
+  function fillRestaurantList(){
+    //console.log("TEST 1 for Rest: BUIILDING: ");
+    //console.log(restaurantHashTable["WENDYS"].BUILDING);
+
+    $('#infoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
+    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p>Restaurant</p></div><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
+    
+    //Looping through buildings map and filling putting the data in the list
+    for (var prop in restaurantHashTable){
+        var tempTraffic = "";
+        var currentBuilding = restaurantHashTable[prop].BUILDING;
+        if(buildingWeight.get(buildingHashTable[currentBuilding]) != null ) {
+            tempTraffic = buildingWeight.get(buildingHashTable[currentBuilding]) 
+        } else {
+            tempTraffic = 0;
+        } 
+        $('#infoDiv').append(
+            "<div class=rowDiv>"
+            //Restaurant name
+            + "<div class=infoContainer><p class=rowText>" + restaurantHashTable[prop].NAME +"</p></div>"
+            //building name
+            + "<div class=infoContainer><p class=rowText>" + currentBuilding +"</p></div>"
+            //current traffic
+            + "<div class=infoContainer><p class=rowText>" 
+            + tempTraffic
+            +"</p></div>"
+            //busiest time, use temp value for now
+            + "<div class=infoContainer><p class=rowText>" + findBusiestTime(buildingHashTable[currentBuilding]) +"</p></div>"
+            //quiestist time
+            +"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[currentBuilding]) +"</p></div>"
+            //closing div
+            + "</div>"
+        );
+        
+       
+        
+    }
+
+    $("#exitButton, #menuButton").click(function(){
+        //console.log("Exit Button")
+        $(".infoDiv").hide();
+        
+    });
+    
+  }
+  //TO DO ELVIS: may change the layout of bukding hash table but that would also mean going into everyfunction and changing how the building is gotten,, though we could maybe just use find/replace for that testing that next time, add hours to restaurants, maybe use the bestTimes api idk yet
