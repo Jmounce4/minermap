@@ -424,7 +424,8 @@ function fillList(){
     for (var prop in buildingHashTable){
         var tempTraffic = "";
         if(buildingWeight.get(buildingHashTable[prop]) != null ) {
-            tempTraffic = buildingWeight.get(buildingHashTable[prop]) 
+            tempTraffic = buildingWeight.get(buildingHashTable[prop]);
+            tempTraffic = Math.floor(tempTraffic/10)*10;
         } else {
             tempTraffic = 0;
         } 
@@ -565,7 +566,9 @@ function changeGradient() {
         var tempTraffic = "";
         var currentBuilding = restaurantHashTable[prop].BUILDING;
         if(buildingWeight.get(buildingHashTable[currentBuilding]) != null ) {
-            tempTraffic = buildingWeight.get(buildingHashTable[currentBuilding]) 
+            tempTraffic = buildingWeight.get(buildingHashTable[currentBuilding]);
+            tempTraffic = Math.floor(tempTraffic/10)*10;
+            
         } else {
             tempTraffic = 0;
         } 
