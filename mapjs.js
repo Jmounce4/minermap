@@ -1,12 +1,18 @@
+
 $(document).ready(function(){
+
+    $( "#type,#time2, #time1" ).selectmenu();
+    
     //on date time selection refresh the entire map
     document.getElementById("dateTime").onchange = mapRefresh;
     $("#gradientButton").click(function(){
         changeGradient();
-        console.log("color button clicked");
+        //console.log("color button clicked");
     });
 
     $(".infoDiv").hide();
+    $(".recommendationWrapper").hide();
+
     $("#testClick").click(function(){
         $(".infoDiv").show();
         //$(".infoDiv").css("width", $("#menuContainer").width())
@@ -17,7 +23,23 @@ $(document).ready(function(){
         //$(".infoDiv").css("width", $("#menuContainer").width())
         fillRestaurantList();
     });
+    $("#recommenderClick").click(function(){
+        $(".recommendationWrapper").show();
+        //$(".infoDiv").css("width", $("#menuContainer").width())
+        fillRestaurantList();
+    });
 
+    $("#exitButtonReco").click(function(){
+        $(".recommendationWrapper").hide();
+        $("#recommendationResult").html("");
+        
+        
+    });
+
+    $("#recommendatioButton").click(function(){
+        console.log("RECOMANDAODSAMD CLICKED");
+        generateReccomendation();
+    });
     
 });
 
@@ -536,9 +558,9 @@ function changeGradient() {
     //console.log(restaurantHashTable["WENDYS"].BUILDING);
 
     $('#infoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
-    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p>Restaurant</p></div><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
+    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p class=rowText>Restaurant</p></div><div class=infoContainer><p class=rowText>Building</p></div><div ><p class=rowText>Current Traffic</p></div><div><p class=rowText>Busiest Time</p></div>"+"</div>");
     
-    //Looping through buildings map and filling putting the data in the list
+    //Looping through buildings map and putting the data in the list
     for (var prop in restaurantHashTable){
         var tempTraffic = "";
         var currentBuilding = restaurantHashTable[prop].BUILDING;
@@ -560,7 +582,7 @@ function changeGradient() {
             //busiest time, use temp value for now
             + "<div class=infoContainer><p class=rowText>" + findBusiestTime(buildingHashTable[currentBuilding]) +"</p></div>"
             //quiestist time
-            +"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[currentBuilding]) +"</p></div>"
+            //+"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[currentBuilding]) +"</p></div>"
             //closing div
             + "</div>"
         );
@@ -577,3 +599,102 @@ function changeGradient() {
     
   }
   //TO DO ELVIS: may change the layout of bukding hash table but that would also mean going into everyfunction and changing how the building is gotten,, though we could maybe just use find/replace for that testing that next time, add hours to restaurants, maybe use the bestTimes api idk yet
+  //so, using the current selections from the user, we will generate a location that best suits their needs
+  //study will need to find quitest area during a time period, while advertise will need to find busiest are during time period
+function generateReccomendation(){
+//********** I'll need to add a fallback for when user picks later time on first option */
+
+    //getting selceted options from user
+  
+    //console.log($("#time1").find(":selected").val());
+    //console.log($("#time2").find(":selected").val());
+    var time1 = parseFloat($("#time1").find(":selected").val());
+    var time2 = parseFloat($("#time2").find(":selected").val());
+
+    var averageDivider = time2 - time1 + 1;
+
+    //starting with code to find least busy building
+    //choosing robinson as a comparison for the rest of the list 
+  
+    var buildingAverages = new Map();
+    for(time1; time1<=time2; time1++){
+        
+        //looping through every building we are using using building hash table
+        for(var building in buildingHashTable){
+
+        //Here we set the building total traffic over the hours selected by the user
+        if(!(building in buildingAverages.keys())){
+            //if builing not in hashtable add it
+            buildingAverages.set(building,  myList[time1][buildingHashTable[building]]);
+        }else{
+            //if building exist in hashtable, update its value with traffic from current hour
+            buildingAverages.set(building, buildingAverages.get(building) + myList[time1][buildingHashTable[building]]);
+        }
+            /*
+            if(building == "UREC"){
+                continue;
+            }
+            */
+            //grabbing the currents traffic from list of traffic (myList) and comparing it to leastBusyBuilding, 
+            //if less least busy building will be changed to the one with less traffic
+           
+            
+        }
+    }
+
+    //now average out all values in hashtable by diving it with total hours used set in averageDivider
+
+    for(var key of buildingAverages.keys()){
+        buildingAverages.set(key, buildingAverages.get(key) / averageDivider);
+        //console.log(key);
+    }
+    
+    //lastly we get the min or max value building based on what user selected they were looking for 
+    var returnBuilding = "UREC";
+    //finding least busy building for studying
+    if($("#type").find(":selected").val() == "study"){
+           
+        for(var key of buildingAverages.keys()){
+            if(buildingAverages.get(key) < buildingAverages.get(returnBuilding)){
+                returnBuilding = key;
+            }
+            
+        }
+        //creating div with result
+        $("#recommendationResult").html("");
+        $("#recommendationResult").append(
+            "From "
+            +$("#time1").find(":selected").val() 
+            +":00 to "
+            +$("#time2").find(":selected").val()
+            + ":00, <br> "
+            +returnBuilding
+            + " was the least busy."
+        );
+
+    }else if($("#type").find(":selected").val() == "advertise"){
+        //finding busiest building for advertising
+        for(var key of buildingAverages.keys()){
+            if(buildingAverages.get(key) > buildingAverages.get(returnBuilding)){
+                returnBuilding = key;
+            }
+            
+        }
+        //creating div with result
+        $("#recommendationResult").html("");
+        $("#recommendationResult").append(
+            "From "
+            +$("#time1").find(":selected").val() 
+            +":00 to "
+            +$("#time2").find(":selected").val()
+            + ":00, <br> "
+            +returnBuilding
+            + " was the most busy."
+        );
+
+    }
+    
+  }
+
+
+  //TO DO ELVIS: do the round thing 

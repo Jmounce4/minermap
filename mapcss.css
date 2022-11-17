@@ -105,6 +105,22 @@
     
 }
 
+#exitButtonReco{
+    position: relative;
+    border: solid 1px gold;
+    background-color: green;
+    color: white;
+    width: 100%;
+    transition: all ease-in-out .5s;
+
+
+    
+}
+
+#exitButtonReco:hover{
+    scale: 1.1;
+    
+}
 .optionsSelection{
     border: solid green 1px;
 }
@@ -129,3 +145,30 @@
 .rowText{
  text-align: center;  
 }
+
+.recommendationWrapper{
+    background-color: lightgray;
+    z-index: 101;
+    position: absolute;
+    min-width: fit-content;
+    width: 20vw;
+    height: 35%;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+
+.centerHeader{
+    text-align: center;
+}
+
+
+
+label{
+display: block;
+
+}
+
