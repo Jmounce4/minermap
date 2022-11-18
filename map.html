@@ -34,6 +34,9 @@
     <div>
       <h1 id="recommenderClick" class="toggle-panel optionsSelection">Recommendation</h1>
     </div>
+    <div>
+      <h1 id="compareClick" class="toggle-panel optionsSelection">Compare Building Info</h1>
+    </div>
   </div>
 
  
@@ -66,7 +69,9 @@
 
 <div class="multiActionBar">
   <div><form action=""><input id="gradientButton" type="button" value="Color"></form></div>
+  <!--
   <div><form action=""><input id="restaurantsButton" type="button" value="Restaurants"></form></div>
+  -->
   
   
 
@@ -125,6 +130,43 @@
   </div>
   
   
+</div>
+<!--Compare div -->
+<div class="recommendationWrapper" id="compareDiv">
+  <div>
+  <div>
+  <form action=""><input id="exitButtonCompare" type="button" value="Exit"></form>
+  </div>
+  <div class="compareSelectDiv">
+    <div>
+      <label for="compare1">Building 1</label>
+      <select name="compare1" id="compare1" class="selectOptions">
+      
+    </select>
+
+    </div>
+    <div>
+      <label for="compare2">Building 2</label>
+      <select name="compare2" id="compare2" class="selectOptions">
+      
+    </select>
+    </div>
+    
+
+  </div>
+  <div class="buildingInfoDiv">
+    <div id="building1Info">
+      <p>Current Traffic: </p>
+      <p>Busiest Time: </p>
+
+
+    </div>
+    <div id="building2Info">
+      <p>Current Traffic: </p>
+      <p>Busiest Time: </p>
+    </div>
+  </div>
+</div>
 </div>
 
 

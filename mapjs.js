@@ -1,35 +1,25 @@
 
 $(document).ready(function(){
 
-    $( "#type,#time2, #time1" ).selectmenu();
-    
+    $( "#type,#time2, #time1, #compare1, #compare2" ).selectmenu();
+    //fillinf the select options from compare selects
+    fillCompareSelect();
     //on date time selection refresh the entire map
     document.getElementById("dateTime").onchange = mapRefresh;
     $("#gradientButton").click(function(){
         changeGradient();
         //console.log("color button clicked");
-        //$("#colorKey").attr("src", "legend2.jpg");
-       
     });
 
-    // Change Map Key
     let colorKey = document.getElementById("colorKey");
     let gradientButton = document.getElementById("gradientButton");
 
-    function changePic() {
-
-        if (colorKey.getAttribute('src') === "legend.jpg"){
-            colorKey.setAttribute('src', "legend2.jpg");
-        }
-        else {
-            colorKey.setAttribute('src', "legend.jpg");
-        }
-    }
+    
 
     gradientButton.addEventListener("click", changePic);
-
     $(".infoDiv").hide();
     $(".recommendationWrapper").hide();
+    $("#compareDiv").hide();
 
     $("#testClick").click(function(){
         $(".infoDiv").show();
@@ -42,17 +32,33 @@ $(document).ready(function(){
         fillRestaurantList();
     });
     $("#recommenderClick").click(function(){
-        $(".recommendationWrapper").show();
-        //$(".infoDiv").css("width", $("#menuContainer").width())
-        fillRestaurantList();
+        $("#recommendationWrapper").show();
+        
     });
 
     $("#exitButtonReco").click(function(){
-        $(".recommendationWrapper").hide();
+        $("#recommendationWrapper").hide();
         $("#recommendationResult").html("");
         
         
     });
+
+    $("#compareClick").click(function(){
+        $("#compareDiv").show();
+    });
+
+    $("#exitButtonCompare").click(function(){
+        $("#compareDiv").hide();
+    });
+
+    
+    $("#menuButton").click(function(){
+        $("#compareDiv").hide();
+        $("#recommendationWrapper").hide();
+        $("#recommendationResult").html("");
+    });
+    
+    $("#compare1, #compare2").on("selectmenuchange", addBuildingInfo);
 
     $("#recommendatioButton").click(function(){
         console.log("RECOMANDAODSAMD CLICKED");
@@ -61,6 +67,15 @@ $(document).ready(function(){
     
 });
 
+function changePic() {
+
+    if (colorKey.getAttribute('src') === "legend.jpg"){
+        colorKey.setAttribute('src', "legend2.jpg");
+    }
+    else {
+        colorKey.setAttribute('src', "legend.jpg");
+    }
+}
 //for testing stuff dont touch please - Elvis
 var x = 1 
 function testFunction(){
@@ -552,7 +567,7 @@ mapRefresh();
 
 let heatmap;
 function initMap() {
-    
+   
    
     console.log("INIT MAP start");
   
@@ -1783,8 +1798,9 @@ async function mapRefresh(){
     console.log("FilePath: ", currentFilePath, (document.dtSelection.dateTime.value.substr(11,11).substr(0,2)));
 
     //since getData is asynchronous, we use a then function to initiate the map
-    getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList);
-
+    getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList).then(addBuildingInfo);
+ 
+    
     
 
 
@@ -2091,4 +2107,69 @@ function generateReccomendation(){
   }
 
 
-  //TO DO ELVIS: do the round thing 
+//filling selects with buildings in buildings hashtable
+function fillCompareSelect(){
+    console.log("RAN  CMOAPRE FIL");
+    for(var building in buildingHashTable){
+        $("#compare1").append(
+            "<option value ="
+            //value set to current building from loop
+            +building
+            +">"
+            //setting text to building from loop
+            +building
+            //closing option div
+            +"</option>"
+        )
+        $("#compare2").append(
+            "<option value ="
+            //value set to current building from loop
+            +building
+            +">"
+            //setting text to building from loop
+            +building
+            //closing option div
+            +"</option>"
+        )
+    }
+    $("#compare1").selectmenu("refresh");
+    $("#compare2").selectmenu("refresh");
+}
+
+//adding selected building info to 
+async function addBuildingInfo(){
+    
+    //setting the initial state of the building info p tags
+    $("#building1Info p:eq(0)").html("Current Traffic: ");
+    $("#building1Info p:eq(1)").html("Busiest Time: ");
+    $("#building2Info p:eq(0)").html("Current Traffic: ");
+    $("#building2Info p:eq(1)").html("Busiest Time: ");
+   
+    //checking that value of building 1 select is not undefined
+    /*
+    if($("#compare1").find(":selected").val() == undefined){
+        console.log("THE BUILDING UNDEFINED CHECK WORKED");
+    }
+    */
+    
+    //getting current traffic of building 1
+    var tempTraffic1 = buildingWeight.get(buildingHashTable[$("#compare1").find(":selected").val()]);
+    tempTraffic1 = Math.floor(tempTraffic1/10)*10;
+  
+    //appending traffic and busiest time to building one info
+    
+    $("#building1Info p:eq(0)").append(tempTraffic1);
+    $("#building1Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare1").find(":selected").val()]));
+
+     //getting current traffic of building 2
+     var tempTraffic2 = buildingWeight.get(buildingHashTable[$("#compare2").find(":selected").val()]);
+     tempTraffic2 = Math.floor(tempTraffic2/10)*10;
+   
+     //appending traffic and busiest time to building two info
+     
+     $("#building2Info p:eq(0)").append(tempTraffic2);
+     $("#building2Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare2").find(":selected").val()]));
+
+}
+
+//TODO for Elvis: make a find busy and least busy time with a time range
