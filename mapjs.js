@@ -8,7 +8,25 @@ $(document).ready(function(){
     $("#gradientButton").click(function(){
         changeGradient();
         //console.log("color button clicked");
+        //$("#colorKey").attr("src", "legend2.jpg");
+       
     });
+
+    // Change Map Key
+    let colorKey = document.getElementById("colorKey");
+    let gradientButton = document.getElementById("gradientButton");
+
+    function changePic() {
+
+        if (colorKey.getAttribute('src') === "legend.jpg"){
+            colorKey.setAttribute('src', "legend2.jpg");
+        }
+        else {
+            colorKey.setAttribute('src', "legend.jpg");
+        }
+    }
+
+    gradientButton.addEventListener("click", changePic);
 
     $(".infoDiv").hide();
     $(".recommendationWrapper").hide();
