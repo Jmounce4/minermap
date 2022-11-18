@@ -461,203 +461,7 @@ const storrsShapeCoords = [
 //
 //
 
-// INFO WINDOW INFORMATION
-//
-//
-//
 
-
-
-const urecString = '<h1> University Recreational Center </h1>' +
-    '<p>Average Hourly Traffic: '+ 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["UREC"]) +
-    '<p>Building Use: Student Services</p>' +
-    '<p>Address: 8827 CRAVER RD, Charlotte NC 28223 </p>';
-
-const atkinsString = '<h1> J. Murrey Atkins Library </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ATKINS"]) +
-    '<p>Building Use: Student Services</p>' +
-    '<p>Address: 410 LIBRARY LN, Charlotte NC 28223 </p>';
-
-const belkString = '<h1> Belk Gym </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BELKGYM"]) +
-    '<p>Building Use: Student Services</p>' +
-    '<p>Address: 8911 University Rd, Charlotte, NC 28223 </p>';
-
-const studentUnionString = '<h1> Student Union </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["STUDENTUNION"]) +
-    '<p>Building Use: Student Services</p>' +
-    '<p>Address: 8845 Craver RD, Charlotte NC 28223 </p>';
-
-const bursonString = '<h1> Burson </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BURSON"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9006 CRAVER RD, Charlotte NC 28223 </p>';
-
-const cameronString = '<h1> Cameron </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CAMERON"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9010 CRAVER RD, Charlotte NC 28223 </p>';
-
-const dennyString = '<h1> Denny </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DENNY"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9125 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const colvardString = '<h1> Colvard </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COLVARD"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9105 UNIVERSITY RD, Charlotte NC 28223 </p>';
-
-const dukeString = '<h1> Duke Centennial Hall </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DUKE"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9330 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
-
-const epicString = '<h1> EPIC </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["EPIC"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 8700 Phillips Rd, Charlotte, NC 28223 </p>';
-
-const prospectorString = '<h1> Prospector </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PROSPECTOR"]) +
-    '<p>Building Use:  Student Services</p>' +
-    '<p>Address: Library Ln, Charlotte, NC 28223 </p>';
-
-const woodwardString = '<h1> Woodward Hall </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WOODWARD"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 8812 CRAVER RD, Charlotte NC 28223 </p>';
-
-const bioinformaticsString = '<h1> Bioinformatics </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BIOINFORMATICS"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9331 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
-
-const coedString = '<h1> Cato College of Education </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COED"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 8838 Craver Rd, Charlotte, NC 28223 </p>';
-
-const coneString = '<h1> Cone </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CONE"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9025 University Rd, Charlotte, NC 28223 </p>';
-
-const fretwellString = '<h1> Fretwell </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRETWELL"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9203 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const portalString = '<h1> PORTAL </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PORTAL"]) +
-    '<p>Building Use: Auxiliary</p>' +
-    '<p>Address: 9319 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
-
-const griggString = '<h1> Grigg Hall </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GRIGG"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9320 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
-
-const soviString = '<h1> Sovi </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["SOVI"]) +
-    '<p>Building Use: Student Services</p>' +
-    '<p>Address: 8917 Johnson Alumni Way, Charlotte, NC 28262 </p>';
-
-const chhsString = '<h1> College of Health and Human Services </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CHHS"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 8844 Craver Rd, Charlotte, NC 28223 </p>';
-
-const kingString = '<h1> King </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KING"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9037 University Rd, Charlotte, NC 28223 </p>';
-
-const kennedyString = '<h1> Kennedy </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KENNEDY"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9214 South, Library Ln, Charlotte, NC 28223 </p>';
-
-const roweString = '<h1> Rowe </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROWE"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9119 University Rd, Charlotte, NC 28223 </p>';
-
-const mceniryString = '<h1> McEniry </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MCENIRY"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9215 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const fridayString = '<h1> Belk College of Business (Friday) </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRIDAY"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9209 Mary Alexander Rd, Charlotte, NC 28262 </p>';
-
-const barnardString = '<h1> Barnard </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BARNARD"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9129 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const macyString = '<h1> Macy </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MACY"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9224 Library Ln, Charlotte, NC 28262 </p>';
-
-const garingerString = '<h1> Garinger </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GARINGER"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9121 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const winninghamString = '<h1> Winningham </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WINNINGHAM"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9236 SOUTH, Library Ln, Charlotte, NC 28223 </p>';
-
-const robinsonString = '<h1> Robinson </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROBINSON"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9027 Mary Alexander Rd, Charlotte, NC 28223 </p>';
-
-const storrsString = '<h1> Storrs School of Architecture </h1>' +
-    '<p>Average Hourly Traffic: ' + 1 +
-    '<p>Busiest Hours: ' +  findBusiestTime(buildingHashTable["STORRS"]) +
-    '<p>Building Use: Instruction & Research</p>' +
-    '<p>Address: 9115 Mary Alexander Rd, Charlotte, NC 28262 </p>';
-
-//
-//
-//
-//
 
 
 //Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
@@ -770,6 +574,213 @@ function initMap() {
     heatmap.set("radius", heatmap.get("radius") ? null : 25);
 
     const image1 = "small.png";
+
+    // INFO WINDOW INFORMATION
+//
+//
+//
+
+
+
+    const urecString = '<h1> University Recreational Center </h1>' +
+        '<p>Average Hourly Traffic: '+ 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["UREC"]) +
+        '<p>Building Use: Student Services</p>' +
+        '<p>Address: 8827 CRAVER RD, Charlotte NC 28223 </p>';
+
+    const atkinsString = '<h1> J. Murrey Atkins Library </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ATKINS"]) +
+        '<p>Building Use: Student Services</p>' +
+        '<p>Address: 410 LIBRARY LN, Charlotte NC 28223 </p>';
+
+    const belkString = '<h1> Belk Gym </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BELKGYM"]) +
+        '<p>Building Use: Student Services</p>' +
+        '<p>Address: 8911 University Rd, Charlotte, NC 28223 </p>';
+
+    const studentUnionString = '<h1> Student Union </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["STUDENTUNION"]) +
+        '<p>Building Use: Student Services</p>' +
+        '<p>Address: 8845 Craver RD, Charlotte NC 28223 </p>';
+
+    const bursonString = '<h1> Burson </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BURSON"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9006 CRAVER RD, Charlotte NC 28223 </p>';
+
+    const cameronString = '<h1> Cameron </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CAMERON"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9010 CRAVER RD, Charlotte NC 28223 </p>';
+
+    const dennyString = '<h1> Denny </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DENNY"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9125 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const colvardString = '<h1> Colvard </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COLVARD"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9105 UNIVERSITY RD, Charlotte NC 28223 </p>';
+
+    const dukeString = '<h1> Duke Centennial Hall </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DUKE"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9330 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
+
+    const epicString = '<h1> EPIC </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["EPIC"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 8700 Phillips Rd, Charlotte, NC 28223 </p>';
+
+    const prospectorString = '<h1> Prospector </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PROSPECTOR"]) +
+        '<p>Building Use:  Student Services</p>' +
+        '<p>Address: Library Ln, Charlotte, NC 28223 </p>';
+
+    const woodwardString = '<h1> Woodward Hall </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WOODWARD"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 8812 CRAVER RD, Charlotte NC 28223 </p>';
+
+    const bioinformaticsString = '<h1> Bioinformatics </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BIOINFORMATICS"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9331 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
+
+    const coedString = '<h1> Cato College of Education </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COED"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 8838 Craver Rd, Charlotte, NC 28223 </p>';
+
+    const coneString = '<h1> Cone </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CONE"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9025 University Rd, Charlotte, NC 28223 </p>';
+
+    const fretwellString = '<h1> Fretwell </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRETWELL"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9203 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const portalString = '<h1> PORTAL </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PORTAL"]) +
+        '<p>Building Use: Auxiliary</p>' +
+        '<p>Address: 9319 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
+
+    const griggString = '<h1> Grigg Hall </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GRIGG"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9320 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
+
+    const soviString = '<h1> Sovi </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["SOVI"]) +
+        '<p>Building Use: Student Services</p>' +
+        '<p>Address: 8917 Johnson Alumni Way, Charlotte, NC 28262 </p>';
+
+    const chhsString = '<h1> College of Health and Human Services </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CHHS"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 8844 Craver Rd, Charlotte, NC 28223 </p>';
+
+    const kingString = '<h1> King </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KING"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9037 University Rd, Charlotte, NC 28223 </p>';
+
+    const kennedyString = '<h1> Kennedy </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KENNEDY"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9214 South, Library Ln, Charlotte, NC 28223 </p>';
+
+    const roweString = '<h1> Rowe </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROWE"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9119 University Rd, Charlotte, NC 28223 </p>';
+
+    const mceniryString = '<h1> McEniry </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MCENIRY"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9215 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const fridayString = '<h1> Belk College of Business (Friday) </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRIDAY"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9209 Mary Alexander Rd, Charlotte, NC 28262 </p>';
+
+    const barnardString = '<h1> Barnard </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BARNARD"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9129 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const macyString = '<h1> Macy </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MACY"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9224 Library Ln, Charlotte, NC 28262 </p>';
+
+    const garingerString = '<h1> Garinger </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GARINGER"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9121 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const winninghamString = '<h1> Winningham </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WINNINGHAM"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9236 SOUTH, Library Ln, Charlotte, NC 28223 </p>';
+
+    const robinsonString = '<h1> Robinson </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROBINSON"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9027 Mary Alexander Rd, Charlotte, NC 28223 </p>';
+
+    const storrsString = '<h1> Storrs School of Architecture </h1>' +
+        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Busiest Hours: ' +  findBusiestTime(buildingHashTable["STORRS"]) +
+        '<p>Building Use: Instruction & Research</p>' +
+        '<p>Address: 9115 Mary Alexander Rd, Charlotte, NC 28262 </p>';
+
+//
+//
+//
+//
+
+
+    //All of this must be done in initmap, since it is all google maps related objects
+    // This establishes all shapes, markers, info windows, and onclick events for each building
+    //
+    //
+    //
+    //
+
 
 
     const urecShape = new google.maps.Polygon({
