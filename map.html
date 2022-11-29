@@ -3,12 +3,9 @@
   <title>Map</title>
 
   <link rel="stylesheet" type="text/css" href="./mapcss.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <script type="text/javascript" src="papaparse.min.js"></script>
   <script src="jquery-csv.js"></script>
   <script type="module" src="./mapjs.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="scotch-panels-master/dist/scotchPanels.js"></script>
   <link rel="stylesheet" href="jquery-ui-1.13.2 backup.custom/jquery-ui.css">
   <script src="jquery-ui-1.13.2 backup.custom/jquery-ui.js"></script>
 
@@ -17,9 +14,21 @@
   
 </head>
 <body>
+
+  <div id="customMenuContainer" class="customMenuContainer">
+    <input type="button" value="Exit" class="customExitButton" id="menuExitButton">
+    <ul class="customMenuUL">
+      <li id="testClick">Foot Traffic in Depth Information</li>
+      <li id="restaurantClick">Restaurants</li>
+      <li id="recommenderClick">Recommendation</li>
+      <li id="compareClick">Compare Building Info</li>
+    </ul>
+
+  </div>
   
+   <!--
   <div id="menuContainer">
-    <!--can use the toggle panel class to open and close menus-->
+    can use the toggle panel class to open and close menus
     <div class="toggle-panel">
       <form action=""><input id="exitButtonMain" type="button" value="Exit"></form>
       
@@ -39,13 +48,16 @@
     </div>
   </div>
 
+-->
+
+
  
 
 
 <div class="options">
 
 
-  <form action=""><input id="menuButton" type="button" value="Options" class="toggle-panel"></form>
+  <input  type="button" value="Options" class="customOptionsButton" id="optionsMenuButton">
   <!--<a href="#" id="menuButton" class="toggle-panel">Options</a>-->
   <div class="customDateTime">
     <form id="dtSelection" name="dtSelection">
@@ -56,17 +68,23 @@
    
   </div>
  
+
   <!--This div is filled by JavaScript function do not touch-->
+  <!--
   <div class="infoDiv" id="infoDiv">
    
     
   </div>
+  -->
+
 
   
   
   
 </div>
 
+
+<div class="customInfoDiv" id="customInfoDiv"></div>
 <div class="multiActionBar">
   <div><form action=""><input id="gradientButton" type="button" value="Color"></form></div>
   <!--
@@ -83,8 +101,10 @@
 
 <!--Div for recommender-->
 <div class="recommendationWrapper" id="recommendationWrapper">
-  <form action=""><input id="exitButtonReco" type="button" value="Exit"></form>
+  
+  
   <div class="recommender">
+    <input type="button" value="Exit" class="customExitButton" id="recommenderExitButton">
     <h2 class="centerHeader">Recommendation</h2>
     <form action="">
     <div>
@@ -96,8 +116,8 @@
     </div>
     
     <div>
-        <label for="time1">Between</label>
-        <select name="time1" id="time1">
+        <label for="time1"  >Between</label>
+        <select name="time1" id="time1" class="optionDiv">
         <option value="13">1:00PM</option>
         <option value="14">2:00PM</option>
         <option value="15">3:00PM</option>
@@ -107,7 +127,8 @@
         <option value="19">7:00PM</option>
         <option value="20">8:00PM</option>
         <option value="21">9:00PM</option>
-      </select></div>
+      </select>
+    </div>
     <div>
       <label for="time2">And</label>
       <select name="time2" id="time2" class="selectOptions">
@@ -135,7 +156,7 @@
 <div class="recommendationWrapper" id="compareDiv">
   <div>
   <div>
-  <form action=""><input id="exitButtonCompare" type="button" value="Exit"></form>
+    <input type="button" value="Exit" class="customExitButton" id="exitButtonCompare">
   </div>
   <div class="compareSelectDiv">
     <div>

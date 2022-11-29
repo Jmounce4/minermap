@@ -1,7 +1,9 @@
 
 $(document).ready(function(){
 
-    $( "#type,#time2, #time1, #compare1, #compare2" ).selectmenu();
+
+    $("#type").selectmenu();
+    $("#time2, #time1, #compare1, #compare2" ).selectmenu();
     //fillinf the select options from compare selects
     fillCompareSelect();
     //on date time selection refresh the entire map
@@ -17,26 +19,43 @@ $(document).ready(function(){
     
 
     gradientButton.addEventListener("click", changePic);
-    $(".infoDiv").hide();
-    $(".recommendationWrapper").hide();
-    $("#compareDiv").hide();
 
+    //hiding  divs
+    $(".infoDiv").hide();
+    //$("#recommendationWrapper").hide();
+    $("#compareDiv").hide();
+    $("#customInfoDiv").hide();
+    $("#customMenuContainer").hide();
+
+
+    $("#optionsMenuButton").click(function(){
+      
+        $("#customMenuContainer").show();
+    });
+    $("#menuExitButton").click(function(){
+      
+        $("#customMenuContainer").hide();
+    });
     $("#testClick").click(function(){
-        $(".infoDiv").show();
+        $("#customMenuContainer").hide();
+        $(".customInfoDiv").show();
         //$(".infoDiv").css("width", $("#menuContainer").width())
         fillList();
     });
     $("#restaurantClick").click(function(){
-        $(".infoDiv").show();
+        $("#customMenuContainer").hide();
+        $(".customInfoDiv").show();
         //$(".infoDiv").css("width", $("#menuContainer").width())
         fillRestaurantList();
     });
     $("#recommenderClick").click(function(){
+        $("#customMenuContainer").hide();
         $("#recommendationWrapper").show();
-        
+        //$(".infoDiv").css("width", $("#menuContainer").width())
+     
     });
 
-    $("#exitButtonReco").click(function(){
+    $("#recommenderExitButton").click(function(){
         $("#recommendationWrapper").hide();
         $("#recommendationResult").html("");
         
@@ -44,6 +63,7 @@ $(document).ready(function(){
     });
 
     $("#compareClick").click(function(){
+        $("#customMenuContainer").hide();
         $("#compareDiv").show();
     });
 
@@ -1824,8 +1844,13 @@ async function mapRefresh(){
 //function will fill out the list using current data
 function fillList(){
     //$('#infoDiv').html("");
-    $('#infoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
-    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
+    var html = "<input class=customExitButton type=button value=Exit id=customInfoDivExit>";
+    html +="<table class=customTable><tr><th>Building</th><th>Current Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>";
+    html += "<tbody>";
+    //$('#customInfoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
+    //$('#customInfoDiv').append("<table><tr><th>Building</th><th>Current Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>");
+    //$('#customInfoDiv').append("<tbody>");
+    //$('#customInfoDiv').append("<div class=rowDiv><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
     
     //Looping through buildings map and filling putting the data in the list
     for (var prop in buildingHashTable){
@@ -1836,7 +1861,26 @@ function fillList(){
         } else {
             tempTraffic = 0;
         } 
-        $('#infoDiv').append(
+        
+        //$('#customInfoDiv').append(
+        html +=    "<tr>" 
+            //building name
+            + "<td>" + prop +"</td>"
+            //current traffic
+            + "<td>" 
+            + tempTraffic
+            +"</td>"
+            //busiest time, use temp value for now
+            + "<td>" + findBusiestTime(buildingHashTable[prop]) +"</td>"
+            //quiestist time
+            +"<td>" + findQuietistTime(buildingHashTable[prop]) +"</td>"
+            //closing div
+            + "</tr>";
+        //);
+        
+       
+        /*
+        $('#customInfoDiv').append(
             "<div class=rowDiv>" 
             //building name
             + "<div class=infoContainer><p class=rowText>" + prop +"</p></div>"
@@ -1852,17 +1896,21 @@ function fillList(){
             + "</div>"
         );
         
-       
+       */
         
     }
-
-    $("#exitButton, #menuButton").click(function(){
+    html += "<tbody></table>"
+    //$('#customInfoDiv').append("<tbody>");
+    //$('#customInfoDiv').append("</table>");
+    $('#customInfoDiv').html(html);
+    $("#customInfoDivExit, #optionsMenuButton").click(function(){
         //console.log("Exit Button")
-        $(".infoDiv").hide();
+        $(".customInfoDiv").hide();
         
     });
   
 }
+
 
 //function to get key from value in buildings map, x is the current value being used
 function getKey(x){
@@ -1962,12 +2010,13 @@ function changeGradient() {
   //for restaurants, we will fill the div with restraurants name, building it is in, and same info as other div. need to create a map that connects the restaurant to builing. Restaurant name: full building name
 
   function fillRestaurantList(){
+  
     //console.log("TEST 1 for Rest: BUIILDING: ");
     //console.log(restaurantHashTable["WENDYS"].BUILDING);
+    var html = "<input class=customExitButton type=button value=Exit id=customInfoDivExit>";
+    html +="<table class=customTable><tr><th>Restaurant</th><th>Building</th><th>Current Traffic</th><th>Busiest Time</th></tr>";
+    html += "<tbody>";
 
-    $('#infoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
-    $('#infoDiv').append("<div class=rowDiv><div class=infoContainer><p class=rowText>Restaurant</p></div><div class=infoContainer><p class=rowText>Building</p></div><div ><p class=rowText>Current Traffic</p></div><div><p class=rowText>Busiest Time</p></div>"+"</div>");
-    
     //Looping through buildings map and putting the data in the list
     for (var prop in restaurantHashTable){
         var tempTraffic = "";
@@ -1979,31 +2028,30 @@ function changeGradient() {
         } else {
             tempTraffic = 0;
         } 
-        $('#infoDiv').append(
-            "<div class=rowDiv>"
+        html +=    "<tr>" 
             //Restaurant name
-            + "<div class=infoContainer><p class=rowText>" + restaurantHashTable[prop].NAME +"</p></div>"
+            + "<td>" + restaurantHashTable[prop].NAME +"</td>"
             //building name
-            + "<div class=infoContainer><p class=rowText>" + currentBuilding +"</p></div>"
+            + "<td>" 
+            + currentBuilding
+            +"</td>"
             //current traffic
-            + "<div class=infoContainer><p class=rowText>" 
-            + tempTraffic
-            +"</p></div>"
+            + "<td>" + tempTraffic +"</td>"
             //busiest time, use temp value for now
-            + "<div class=infoContainer><p class=rowText>" + findBusiestTime(buildingHashTable[currentBuilding]) +"</p></div>"
-            //quiestist time
-            //+"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[currentBuilding]) +"</p></div>"
+            +"<td>" + findBusiestTime(buildingHashTable[currentBuilding]) +"</td>"
             //closing div
-            + "</div>"
-        );
+            + "</tr>";
+        
         
        
         
     }
 
-    $("#exitButton, #menuButton").click(function(){
+    html += "<tbody></table>"
+    $('#customInfoDiv').html(html);
+    $("#customInfoDivExit, #optionsMenuButton").click(function(){
         //console.log("Exit Button")
-        $(".infoDiv").hide();
+        $(".customInfoDiv").hide();
         
     });
     
