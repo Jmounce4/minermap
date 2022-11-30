@@ -1,4 +1,7 @@
-
+//changed the fill to fill the new div, make a new menu so users can select from there instead the slider menu plugin, make the building names not all uppercase
+//add other options aprt from color: restaurants, point size, turn off
+//TODO for Elvis: make a find busy and least busy time with a time range
+//create function to get average and highest traffic
 $(document).ready(function(){
 
 
@@ -7,12 +10,24 @@ $(document).ready(function(){
     //fillinf the select options from compare selects
     fillCompareSelect();
     //on date time selection refresh the entire map
+
+    //color button funcitonality
     document.getElementById("dateTime").onchange = mapRefresh;
     $("#gradientButton").click(function(){
         changeGradient();
         //console.log("color button clicked");
     });
 
+    //Size Button Functionality
+    $("#sizeButton").click(function(){
+        changeSize();
+        //.log("size button clicked");
+    });
+    //opacity button funcitonality
+    $("#opacityButton").click(function(){
+        changeOpacity();
+        //console.log("size button clicked");
+    });
     let colorKey = document.getElementById("colorKey");
     let gradientButton = document.getElementById("gradientButton");
 
@@ -22,11 +37,11 @@ $(document).ready(function(){
 
     //hiding  divs
     $(".infoDiv").hide();
-    //$("#recommendationWrapper").hide();
+    $("#recommendationWrapper").hide();
     $("#compareDiv").hide();
     $("#customInfoDiv").hide();
     $("#customMenuContainer").hide();
-
+    
 
     $("#optionsMenuButton").click(function(){
       
@@ -199,6 +214,45 @@ let buildingHashTable = {
 //CATO is placing markers in wrong area, just keep CoEd
     
 }
+
+let buildingHashTable2 = {
+    UREC: {ABBREVIATION:"UREC", NAME: "UREC"},
+    ATKINS:{ABBREVIATION:"Atki", NAME: "Atkins Library"} ,
+    BELKGYM: {ABBREVIATION:"BelG", NAME: "Belk Gym"},
+    STUDENTUNION: {ABBREVIATION:"StuU", NAME: "Student Union"},
+    BURSON: {ABBREVIATION:"Burs", NAME: "Burson"},
+    CAMERON: {ABBREVIATION:"Came", NAME: "Cameron"},
+    DENNY: {ABBREVIATION:"Denn", NAME: "Denny"} ,
+    COLVARD: {ABBREVIATION:"Colv", NAME: "Colvard"},
+    DUKE: {ABBREVIATION:"Duke", NAME: "Duke"},
+    EPIC: {ABBREVIATION:"EPIC", NAME: "Epic"},
+    PROSPECTOR: {ABBREVIATION:"Pros", NAME: "Prospector"},
+    WOODWARD:{ABBREVIATION:"Wood", NAME: "Woodward"} ,
+    BIOINFORMATICS: {ABBREVIATION:"Bioi", NAME: "BioInformatics"},
+    COED: {ABBREVIATION:"CoEd", NAME: "College of Education"},
+    CONE: {ABBREVIATION:"Cone", NAME: "Cone"},
+    FRETWELL: {ABBREVIATION:"Fret", NAME: "Fretwell"},
+    PORTAL: {ABBREVIATION:"PORT", NAME: "Portal"},
+    GRIGG: {ABBREVIATION:"Grig", NAME: "Grigg"},
+    SOVI: {ABBREVIATION:"SVDH", NAME: "Sovi"},
+    //CATO: "Cato",
+    CHHS: {ABBREVIATION:"Heal", NAME: "College of Health Services"},
+    KING: {ABBREVIATION:"King", NAME: "King"},
+    KENNEDY: {ABBREVIATION:"Kenn", NAME: "Kennedy"},
+    ROWE: {ABBREVIATION:"Rowe", NAME: "Rowe"},
+    MCENIRY: {ABBREVIATION:"McEn", NAME: "McEniry"},
+    FRIDAY: {ABBREVIATION:"Frid", NAME: "Friday"},
+    BARNARD: {ABBREVIATION:"Barn", NAME: "Barnard"},
+    MACY: {ABBREVIATION:"Macy", NAME: "Macy"},
+    GARINGER: {ABBREVIATION:"Gari", NAME: "Garinger"},
+    WINNINGHAM: {ABBREVIATION:"Winn", NAME: "Winningham"},
+    ROBINSON: {ABBREVIATION:"Robi", NAME: "Robinson"},
+    STORRS: {ABBREVIATION:"Stor", NAME: "Storrs"}
+    
+//CATO is placing markers in wrong area, just keep CoEd
+    
+}
+
 
 //these are the variables that will be modified as the user selects time and date
 var currentFilePath;
@@ -626,6 +680,7 @@ function initMap() {
     heatmap.setMap(map);
     heatmap.set("radius", heatmap.get("radius") ? null : 25);
 
+   
     const image1 = "small.png";
 
     // INFO WINDOW INFORMATION
@@ -1865,7 +1920,7 @@ function fillList(){
         //$('#customInfoDiv').append(
         html +=    "<tr>" 
             //building name
-            + "<td>" + prop +"</td>"
+            + "<td>" + buildingHashTable2[prop].NAME +"</td>"
             //current traffic
             + "<td>" 
             + tempTraffic
@@ -2033,7 +2088,7 @@ function changeGradient() {
             + "<td>" + restaurantHashTable[prop].NAME +"</td>"
             //building name
             + "<td>" 
-            + currentBuilding
+            + buildingHashTable2[currentBuilding].NAME
             +"</td>"
             //current traffic
             + "<td>" + tempTraffic +"</td>"
@@ -2126,7 +2181,7 @@ function generateReccomendation(){
             +":00 to "
             +$("#time2").find(":selected").val()
             + ":00, <br> "
-            +returnBuilding
+            +buildingHashTable2[returnBuilding].NAME
             + " was the least busy."
         );
 
@@ -2146,7 +2201,7 @@ function generateReccomendation(){
             +":00 to "
             +$("#time2").find(":selected").val()
             + ":00, <br> "
-            +returnBuilding
+            +buildingHashTable2[returnBuilding].NAME
             + " was the most busy."
         );
 
@@ -2158,14 +2213,15 @@ function generateReccomendation(){
 //filling selects with buildings in buildings hashtable
 function fillCompareSelect(){
     console.log("RAN  CMOAPRE FIL");
-    for(var building in buildingHashTable){
+    for(var building in buildingHashTable2){
+        console.log(building);
         $("#compare1").append(
             "<option value ="
             //value set to current building from loop
             +building
             +">"
             //setting text to building from loop
-            +building
+            +buildingHashTable2[building].NAME
             //closing option div
             +"</option>"
         )
@@ -2175,7 +2231,7 @@ function fillCompareSelect(){
             +building
             +">"
             //setting text to building from loop
-            +building
+            +buildingHashTable2[building].NAME
             //closing option div
             +"</option>"
         )
@@ -2220,4 +2276,36 @@ async function addBuildingInfo(){
 
 }
 
-//TODO for Elvis: make a find busy and least busy time with a time range
+
+
+function changeSize() {
+    if( heatmap.get("radius") == 25){
+        heatmap.set("radius",45);
+    }else if(heatmap.get("radius") == 45){
+        heatmap.set("radius",15);
+    }else{
+        heatmap.set("radius",25);
+    }
+    
+   
+    
+    
+}
+
+function changeOpacity(){
+    
+
+    if( heatmap.get("opacity") == 0.5){
+
+        heatmap.set("opacity",  0.7);
+        
+    }else if(heatmap.get("opacity") == 0.7){
+        heatmap.set("opacity",  1);
+    }else{
+        heatmap.set("opacity",  0.5);
+    }
+    
+  }
+
+  
+  

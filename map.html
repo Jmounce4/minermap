@@ -16,7 +16,7 @@
 <body>
 
   <div id="customMenuContainer" class="customMenuContainer">
-    <input type="button" value="Exit" class="customExitButton" id="menuExitButton">
+    <input type="button" value="Exit" class="customMapButton" id="menuExitButton">
     <ul class="customMenuUL">
       <li id="testClick">Foot Traffic in Depth Information</li>
       <li id="restaurantClick">Restaurants</li>
@@ -57,7 +57,7 @@
 <div class="options">
 
 
-  <input  type="button" value="Options" class="customOptionsButton" id="optionsMenuButton">
+  <input  type="button" value="Options" class="customMapButton" id="optionsMenuButton">
   <!--<a href="#" id="menuButton" class="toggle-panel">Options</a>-->
   <div class="customDateTime">
     <form id="dtSelection" name="dtSelection">
@@ -86,7 +86,9 @@
 
 <div class="customInfoDiv" id="customInfoDiv"></div>
 <div class="multiActionBar">
-  <div><form action=""><input id="gradientButton" type="button" value="Color"></form></div>
+  <div><form action=""><input id="gradientButton" type="button" value="Color" class="customMapButton"></form></div>
+  <div><form action=""><input id="sizeButton" type="button" value="Size" class="customMapButton"></form></div>
+  <div><form action=""><input id="opacityButton" type="button" value="Opacity" class="customMapButton"></form></div>
   <!--
   <div><form action=""><input id="restaurantsButton" type="button" value="Restaurants"></form></div>
   -->
@@ -104,7 +106,7 @@
   
   
   <div class="recommender">
-    <input type="button" value="Exit" class="customExitButton" id="recommenderExitButton">
+    <input type="button" value="Exit" class="customMapButton" id="recommenderExitButton">
     <h2 class="centerHeader">Recommendation</h2>
     <form action="">
     <div>
@@ -144,7 +146,7 @@
     </select>
     </div>
     <br>
-    <input type="button" value="Recommend" id="recommendatioButton">
+    <input type="button" value="Recommend" id="recommendatioButton" class="customMapButton">
     </form>
     <!--This div below will be mde with jquery-->
     <div id="recommendationResult"></div>
@@ -156,7 +158,7 @@
 <div class="recommendationWrapper" id="compareDiv">
   <div>
   <div>
-    <input type="button" value="Exit" class="customExitButton" id="exitButtonCompare">
+    <input type="button" value="Exit" class="customMapButton" id="exitButtonCompare">
   </div>
   <div class="compareSelectDiv">
     <div>
