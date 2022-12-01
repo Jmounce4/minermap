@@ -1,7 +1,8 @@
 //changed the fill to fill the new div, make a new menu so users can select from there instead the slider menu plugin, make the building names not all uppercase
-//add other options aprt from color: restaurants, point size, turn off
+//add other options aprt from color: restaurants, point size, turn off maybe
 //TODO for Elvis: make a find busy and least busy time with a time range
 //create function to get average and highest traffic
+
 $(document).ready(function(){
 
 
@@ -61,7 +62,7 @@ $(document).ready(function(){
         $("#customMenuContainer").hide();
         $(".customInfoDiv").show();
         //$(".infoDiv").css("width", $("#menuContainer").width())
-        fillRestaurantList();
+       
     });
     $("#recommenderClick").click(function(){
         $("#customMenuContainer").hide();
@@ -77,16 +78,18 @@ $(document).ready(function(){
         
     });
 
+    //compare option functionality
     $("#compareClick").click(function(){
         $("#customMenuContainer").hide();
         $("#compareDiv").show();
+       
     });
 
     $("#exitButtonCompare").click(function(){
         $("#compareDiv").hide();
     });
+    //end of compare option functionality
 
-    
     $("#menuButton").click(function(){
         $("#compareDiv").hide();
         $("#recommendationWrapper").hide();
@@ -1880,7 +1883,7 @@ async function mapRefresh(){
 
 
 }
-
+/*
  $('#menuContainer').scotchPanel({
     containerSelector: 'body', // As a jQuery Selector
     direction: 'left', // Make it toggle in from the left
@@ -1892,7 +1895,7 @@ async function mapRefresh(){
 
 
 });
-
+*/
 
 
 
@@ -2241,13 +2244,17 @@ function fillCompareSelect(){
 }
 
 //adding selected building info to 
-async function addBuildingInfo(){
+async function addBuildingInfo(){   
     
     //setting the initial state of the building info p tags
     $("#building1Info p:eq(0)").html("Current Traffic: ");
     $("#building1Info p:eq(1)").html("Busiest Time: ");
+    $("#building1Info p:eq(2)").html("Average Foot Traffic: ");
     $("#building2Info p:eq(0)").html("Current Traffic: ");
     $("#building2Info p:eq(1)").html("Busiest Time: ");
+    $("#building2Info p:eq(2)").html("Average Foot Traffic: ");
+
+    $("#compareCurrentHour").append(currentHour);
    
     //checking that value of building 1 select is not undefined
     /*
@@ -2260,19 +2267,29 @@ async function addBuildingInfo(){
     var tempTraffic1 = buildingWeight.get(buildingHashTable[$("#compare1").find(":selected").val()]);
     tempTraffic1 = Math.floor(tempTraffic1/10)*10;
   
-    //appending traffic and busiest time to building one info
+    //appending traffic and busiest time to building one info + other info
     
     $("#building1Info p:eq(0)").append(tempTraffic1);
     $("#building1Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare1").find(":selected").val()]));
+    $("#building1Info p:eq(2)").append(await getAverage(buildingHashTable[$("#compare1").find(":selected").val()]));
+
+       
+    
+    
+   
+    
 
      //getting current traffic of building 2
      var tempTraffic2 = buildingWeight.get(buildingHashTable[$("#compare2").find(":selected").val()]);
      tempTraffic2 = Math.floor(tempTraffic2/10)*10;
    
-     //appending traffic and busiest time to building two info
+     //appending traffic and busiest time to building two info + other info
      
      $("#building2Info p:eq(0)").append(tempTraffic2);
      $("#building2Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare2").find(":selected").val()]));
+     $("#building2Info p:eq(2)").append(await getAverage(buildingHashTable[$("#compare2").find(":selected").val()]));
+     //$("#building2Info p:eq(2)").append(getAverage(buildingHashTable[$("#compare1").find(":selected").val()]));
+   
 
 }
 
@@ -2292,7 +2309,7 @@ function changeSize() {
     
 }
 
-function changeOpacity(){
+async function changeOpacity(){
     
 
     if( heatmap.get("opacity") == 0.5){
@@ -2304,6 +2321,60 @@ function changeOpacity(){
     }else{
         heatmap.set("opacity",  0.5);
     }
+    
+  }
+
+  async function getAverage(building){
+    console.log("starting get average");
+   
+    var total = 0;
+    //get the json file
+    await $.ajax({
+        type: "get",
+        //current file path if gloabl variable used in initial parse of json file for map, can be used here
+        url: currentFilePath,
+        beforeSend: function() {
+    
+        },
+        timeout: 10000,
+        error: function(xhr, status, error) {
+            alert("Error: " + xhr.status + " - " + error);
+        },
+        dataType: "json",
+        success:  function(data) {
+            //console.log(data);
+            
+            //parse through each hour
+              $.each(data,  function(){
+               
+                //find building we are currently looking for
+                 $.each(this, function(key,value){
+                    if(key == building){
+                        
+                        //add current foot traffic to variable
+                        total += value;
+                    }
+
+                });
+                
+                
+            });
+            //get average by diving by 24 for 24 hours
+            total = total/24
+        }
+
+        
+    });
+
+    return Math.floor(total);
+
+    
+  
+
+    
+
+    
+
     
   }
 
