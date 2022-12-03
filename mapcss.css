@@ -300,5 +300,7 @@ display: block;
   background-color: #2c974b;
 }
 
-
+th, td{
+    padding-right: 1vw;
+}
 

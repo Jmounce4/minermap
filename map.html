@@ -18,41 +18,13 @@
   <div id="customMenuContainer" class="customMenuContainer">
     <input type="button" value="Exit" class="customMapButton" id="menuExitButton">
     <ul class="customMenuUL">
-      <li id="testClick">Foot Traffic in Depth Information</li>
+      <li id="buildingInfoClick">Foot Traffic in Depth Information</li>
       <li id="restaurantClick">Restaurants</li>
       <li id="recommenderClick">Recommendation</li>
       <li id="compareClick">Compare Building Info</li>
     </ul>
 
   </div>
-  
-   <!--
-  <div id="menuContainer">
-    can use the toggle panel class to open and close menus
-    <div class="toggle-panel">
-      <form action=""><input id="exitButtonMain" type="button" value="Exit"></form>
-      
-    </div>
-    
-    <div>
-      <h1 id="testClick" class="toggle-panel optionsSelection">Foot Traffic in Depth Information</h1>
-    </div>
-    <div>
-      <h1 id="restaurantClick" class="toggle-panel optionsSelection">Restaurants</h1>
-    </div>
-    <div>
-      <h1 id="recommenderClick" class="toggle-panel optionsSelection">Recommendation</h1>
-    </div>
-    <div>
-      <h1 id="compareClick" class="toggle-panel optionsSelection">Compare Building Info</h1>
-    </div>
-  </div>
-
--->
-
-
- 
-
 
 <div class="options">
 
@@ -85,14 +57,12 @@
 
 
 <div class="customInfoDiv" id="customInfoDiv"></div>
+
 <div class="multiActionBar">
   <div><form action=""><input id="gradientButton" type="button" value="Color" class="customMapButton"></form></div>
   <div><form action=""><input id="sizeButton" type="button" value="Size" class="customMapButton"></form></div>
   <div><form action=""><input id="opacityButton" type="button" value="Opacity" class="customMapButton"></form></div>
-  <!--
-  <div><form action=""><input id="restaurantsButton" type="button" value="Restaurants"></form></div>
-  -->
-  
+  <div><form action="" id="timeButtonForm" name="timeButtonForm"><input id="timeButton" type="button" value="24 Hour" class="customMapButton"></form></div>
   
 
 
@@ -102,7 +72,7 @@
 </div>
 
 <!--Div for recommender-->
-<div class="recommendationWrapper" id="recommendationWrapper">
+<div class="recommendationWrapper" id="reccommendDiv">
   
   
   <div class="recommender">
@@ -163,13 +133,28 @@
   <div><p id="compareCurrentHour">Time: </p></div>
   <div class="compareSelectDiv">
     <div>
+      <div >
+        <label for="building1DateTimeForm">Building 1 Date</label>
+      <form id="building1DateTimeForm" name="building1DateTimeForm" >
+        <input type="date" name="building1DateTime" id="building1DateTime" min="2020-08-20" max="2021-09-22" value="2020-10-12" >
+    
+      </form>
+    </div>
       <label for="compare1">Building 1</label>
+      
       <select name="compare1" id="compare1" class="selectOptions">
       
     </select>
 
     </div>
     <div>
+      <div>
+        <label for="building2DateTimeForm">Building 2 Date</label>
+      <form id="building2DateTimeForm" name="building2DateTimeForm">
+        <input type="date" name="building2DateTime" id="building2DateTime" min="2020-08-20" max="2021-09-22" value="2020-10-12">
+    
+      </form>
+    </div>
       <label for="compare2">Building 2</label>
       <select name="compare2" id="compare2" class="selectOptions">
       
@@ -183,12 +168,16 @@
       <p>Current Traffic: </p>
       <p>Busiest Time: </p>
       <p> </p>
+      <p> </p>
+      <p>  </p>
 
 
     </div>
     <div id="building2Info">
       <p>Current Traffic: </p>
       <p>Busiest Time: </p>
+      <p> </p>
+      <p> </p>
       <p> </p>
     </div>
   </div>

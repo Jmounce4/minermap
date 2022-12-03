@@ -3,8 +3,16 @@
 //TODO for Elvis: make a find busy and least busy time with a time range
 //create function to get average and highest traffic
 
+/*
+
+- add time converter for 24 to 12, do thi sby creating funciton that converts, add option button beside the others 
+- add comapre on different days
+
+*/
+
 $(document).ready(function(){
 
+    mapRefresh();
 
     $("#type").selectmenu();
     $("#time2, #time1, #compare1, #compare2" ).selectmenu();
@@ -16,18 +24,19 @@ $(document).ready(function(){
     document.getElementById("dateTime").onchange = mapRefresh;
     $("#gradientButton").click(function(){
         changeGradient();
-        //console.log("color button clicked");
     });
 
     //Size Button Functionality
     $("#sizeButton").click(function(){
         changeSize();
-        //.log("size button clicked");
     });
     //opacity button funcitonality
     $("#opacityButton").click(function(){
         changeOpacity();
-        //console.log("size button clicked");
+    });
+    //Time Button Functionality
+    $("#timeButton").click(function(){
+        timeButtonStateChange();
     });
     let colorKey = document.getElementById("colorKey");
     let gradientButton = document.getElementById("gradientButton");
@@ -36,14 +45,14 @@ $(document).ready(function(){
 
     gradientButton.addEventListener("click", changePic);
 
-    //hiding  divs
+    //hiding menu divs
     $(".infoDiv").hide();
-    $("#recommendationWrapper").hide();
+    $("#reccommendDiv").hide();
     $("#compareDiv").hide();
     $("#customInfoDiv").hide();
     $("#customMenuContainer").hide();
     
-
+    //options menu functionality
     $("#optionsMenuButton").click(function(){
       
         $("#customMenuContainer").show();
@@ -52,27 +61,29 @@ $(document).ready(function(){
       
         $("#customMenuContainer").hide();
     });
-    $("#testClick").click(function(){
+    //end of options menu functionality
+
+    //Menu option 1 - Building info chart
+    $("#buildingInfoClick").click(function(){
         $("#customMenuContainer").hide();
         $(".customInfoDiv").show();
-        //$(".infoDiv").css("width", $("#menuContainer").width())
         fillList();
     });
+
+    //Menu option 2 - Restaurant info chart
     $("#restaurantClick").click(function(){
         $("#customMenuContainer").hide();
-        $(".customInfoDiv").show();
-        //$(".infoDiv").css("width", $("#menuContainer").width())
-       
-    });
-    $("#recommenderClick").click(function(){
-        $("#customMenuContainer").hide();
-        $("#recommendationWrapper").show();
-        //$(".infoDiv").css("width", $("#menuContainer").width())
-     
+        $("#customInfoDiv").show();
+        fillRestaurantList();      
     });
 
+    //Menu option 3 - Recommmender 
+    $("#recommenderClick").click(function(){
+        $("#customMenuContainer").hide();
+        $("#reccommendDiv").show();
+    });
     $("#recommenderExitButton").click(function(){
-        $("#recommendationWrapper").hide();
+        $("#reccommendDiv").hide();
         $("#recommendationResult").html("");
         
         
@@ -88,18 +99,20 @@ $(document).ready(function(){
     $("#exitButtonCompare").click(function(){
         $("#compareDiv").hide();
     });
-    //end of compare option functionality
 
+    //on options button click, hide any divs that may be open
     $("#menuButton").click(function(){
         $("#compareDiv").hide();
-        $("#recommendationWrapper").hide();
+        $("#reccommendDiv").hide();
         $("#recommendationResult").html("");
     });
     
+    //on user select option change for campare menu, refresh information shown
     $("#compare1, #compare2").on("selectmenuchange", addBuildingInfo);
-
+    document.getElementById("building2DateTime", "building1DateTime").onchange = addBuildingInfo;
+    document.getElementById( "building1DateTime").onchange = addBuildingInfo;
+    //function generates recommendation on click
     $("#recommendatioButton").click(function(){
-        console.log("RECOMANDAODSAMD CLICKED");
         generateReccomendation();
     });
     
@@ -592,39 +605,9 @@ for(let iso of tempJson){
 }
 let testvar = await myList[hour];
 console.log(testvar);
-/*
-    fetch("test3.json")
-.then(response => response.json())
-.then(json =>{
-    for(let iso of json){
-        //console.log(iso);
-        tempString =  JSON.stringify(iso);
-        temp =  JSON.parse(tempString);
-        myList.push(iso);
-    }
-   
-   
-}).then(json =>{
-    console.log(myList);
-    
-    let testvar = myList[0];
-    console.log(testvar);
-    
-    //console.log(testvar.Atki);
-    //here we add the hour foot traffic to the weight table building name: weight
-   
-    
-}
-    );
-    //loop for object properties, can prob use to loop through buildings in the building hash table as well
-    for (var prop in testvar){
-}
-    */
+
 
 //loop through each builing in building table and set the weights
-//var buildingKey = buildingHashTable.UREC;
-//var currentWeight = testvar.buildingKey; 
-//console.log(currentWeight, buildingKey);
 
 for (var prop in buildingHashTable){
     console.log(buildingHashTable[prop]);
@@ -633,12 +616,12 @@ for (var prop in buildingHashTable){
 }
 
 console.log("getData DONE");
-//await findBusiestTime(x);
+
 
 }
 
 
-mapRefresh();
+
 
 //reminder on hour/time change the building weight and map needs to be refreshed to do tommorow 10/26
 
@@ -1853,17 +1836,6 @@ function initMap() {
 }
 
 
-//for some reason substr pulls the time all togethjer when substr, to get it we first substr the time to its own var then substr it again
-/*
-var testDate = document.dtSelection.dateTime.value;
-console.log(testDate.substr(0,10));
-var testType = testDate.substr(11);
-console.log(testType.substr(0,2));
-console.log(testDate.substr(11,11));
-console.log(typeof +testType);
-console.log(+"09");
-*/
-
 //this resets variables and refreshes the actual map
 async function mapRefresh(){
     //outputting initial time and file path
@@ -1883,33 +1855,17 @@ async function mapRefresh(){
 
 
 }
-/*
- $('#menuContainer').scotchPanel({
-    containerSelector: 'body', // As a jQuery Selector
-    direction: 'left', // Make it toggle in from the left
-    duration: 300, // Speed in ms how fast you want it to be
-    transition: 'ease', // CSS3 transition type: linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(P1x,P1y,P2x,P2y)
-    clickSelector: '.toggle-panel', // Enables toggling when clicking elements of this class
-    distanceX: '30%', // Size fo the toggle
-    enableEscapeKey: true // Clicking Esc will close the panel
 
-
-});
-*/
 
 
 
 //function will fill out the list using current data
-function fillList(){
+async function fillList(){
     //$('#infoDiv').html("");
     var html = "<input class=customExitButton type=button value=Exit id=customInfoDivExit>";
-    html +="<table class=customTable><tr><th>Building</th><th>Current Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>";
+    html +="<table class=customTable><tr><th>Building</th><th>Current Traffic</th><th>Average Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>";
     html += "<tbody>";
-    //$('#customInfoDiv').html("<form id=exitButton action=><input class=exitContainer type=button value=Exit ></form>");
-    //$('#customInfoDiv').append("<table><tr><th>Building</th><th>Current Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>");
-    //$('#customInfoDiv').append("<tbody>");
-    //$('#customInfoDiv').append("<div class=rowDiv><div class=infoContainer><p>Building</p></div><div ><p >Current Traffic</p></div><div><p>Busiest Time</p></div><div><p>Quietist Time</p></div></div>");
-    
+
     //Looping through buildings map and filling putting the data in the list
     for (var prop in buildingHashTable){
         var tempTraffic = "";
@@ -1920,47 +1876,30 @@ function fillList(){
             tempTraffic = 0;
         } 
         
-        //$('#customInfoDiv').append(
-        html +=    "<tr>" 
+   
+        html +=  "<tr>" 
             //building name
             + "<td>" + buildingHashTable2[prop].NAME +"</td>"
             //current traffic
             + "<td>" 
             + tempTraffic
             +"</td>"
+            //Average Traffic
+            + "<td>" 
+            + await getAverage(buildingHashTable2[prop].ABBREVIATION)
+            +"</td>"
             //busiest time, use temp value for now
-            + "<td>" + findBusiestTime(buildingHashTable[prop]) +"</td>"
+            + "<td>" + timeReturn(findBusiestTime(buildingHashTable[prop])) +"</td>"
             //quiestist time
-            +"<td>" + findQuietistTime(buildingHashTable[prop]) +"</td>"
-            //closing div
+            +"<td>" + timeReturn(findQuietistTime(buildingHashTable[prop])) +"</td>"
+            //closing row
             + "</tr>";
-        //);
-        
-       
-        /*
-        $('#customInfoDiv').append(
-            "<div class=rowDiv>" 
-            //building name
-            + "<div class=infoContainer><p class=rowText>" + prop +"</p></div>"
-            //current traffic
-            + "<div class=infoContainer><p class=rowText>" 
-            + tempTraffic
-            +"</p></div>"
-            //busiest time, use temp value for now
-            + "<div class=infoContainer><p class=rowText>" + findBusiestTime(buildingHashTable[prop]) +"</p></div>"
-            //quiestist time
-            +"<div class=infoContainer><p class=rowText>" + findQuietistTime(buildingHashTable[prop]) +"</p></div>"
-            //closing div
-            + "</div>"
-        );
-        
-       */
+            
         
     }
     html += "<tbody></table>"
-    //$('#customInfoDiv').append("<tbody>");
-    //$('#customInfoDiv').append("</table>");
     $('#customInfoDiv').html(html);
+
     $("#customInfoDivExit, #optionsMenuButton").click(function(){
         //console.log("Exit Button")
         $(".customInfoDiv").hide();
@@ -1983,7 +1922,7 @@ function getKey(x){
     return null;
 }
 
-//console.log("TESTING getKey: ", getKey)
+
 
 //Find the busiest time for for building that day
 function findBusiestTime(building){
@@ -1991,7 +1930,6 @@ function findBusiestTime(building){
     var max = 0;
     var busiestHour;
     for(var list in myList){
-        //myList[list]: this grabs the the current hour list
         //next we need to grab each traffic for the current building and then return the max or min
         //grabbing list for hour
         let tempHour = myList[list];
@@ -2016,7 +1954,7 @@ function findQuietistTime(building){
     var quietistHour;
     
     for(var list in myList){
-        //console.log(list);
+
         //myList[list]: this grabs the the current hour list
         //next we need to grab each traffic for the current building and then return the max or min
         //grabbing list for hour
@@ -2065,14 +2003,11 @@ function changeGradient() {
     heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
   }
 
-  //for restaurants, we will fill the div with restraurants name, building it is in, and same info as other div. need to create a map that connects the restaurant to builing. Restaurant name: full building name
 
-  function fillRestaurantList(){
-  
-    //console.log("TEST 1 for Rest: BUIILDING: ");
-    //console.log(restaurantHashTable["WENDYS"].BUILDING);
+ async function fillRestaurantList(){
+    $('#customInfoDiv').html("");
     var html = "<input class=customExitButton type=button value=Exit id=customInfoDivExit>";
-    html +="<table class=customTable><tr><th>Restaurant</th><th>Building</th><th>Current Traffic</th><th>Busiest Time</th></tr>";
+    html +="<table class=customTable><tr><th>Restaurant</th><th>Building</th><th>Current Traffic</th><th>Average Traffic</th><th>Busiest Time</th></tr>";
     html += "<tbody>";
 
     //Looping through buildings map and putting the data in the list
@@ -2095,8 +2030,12 @@ function changeGradient() {
             +"</td>"
             //current traffic
             + "<td>" + tempTraffic +"</td>"
+            //Average Traffic
+            + "<td>" 
+            + await getAverage(buildingHashTable2[currentBuilding].ABBREVIATION)
+            +"</td>"
             //busiest time, use temp value for now
-            +"<td>" + findBusiestTime(buildingHashTable[currentBuilding]) +"</td>"
+            +"<td>" + timeReturn(findBusiestTime(buildingHashTable[currentBuilding])) +"</td>"
             //closing div
             + "</tr>";
         
@@ -2108,17 +2047,14 @@ function changeGradient() {
     html += "<tbody></table>"
     $('#customInfoDiv').html(html);
     $("#customInfoDivExit, #optionsMenuButton").click(function(){
-        //console.log("Exit Button")
+
         $(".customInfoDiv").hide();
         
     });
     
   }
-  //TO DO ELVIS: may change the layout of bukding hash table but that would also mean going into everyfunction and changing how the building is gotten,, though we could maybe just use find/replace for that testing that next time, add hours to restaurants, maybe use the bestTimes api idk yet
-  //so, using the current selections from the user, we will generate a location that best suits their needs
-  //study will need to find quitest area during a time period, while advertise will need to find busiest are during time period
+
 function generateReccomendation(){
-//********** I'll need to add a fallback for when user picks later time on first option */
 
     //getting selceted options from user
   
@@ -2180,10 +2116,10 @@ function generateReccomendation(){
         $("#recommendationResult").html("");
         $("#recommendationResult").append(
             "From "
-            +$("#time1").find(":selected").val() 
-            +":00 to "
-            +$("#time2").find(":selected").val()
-            + ":00, <br> "
+            +timeReturn($("#time1").find(":selected").val()) 
+            +" to "
+            +timeReturn($("#time2").find(":selected").val())
+            + ", <br> "
             +buildingHashTable2[returnBuilding].NAME
             + " was the least busy."
         );
@@ -2244,57 +2180,84 @@ function fillCompareSelect(){
 }
 
 //adding selected building info to 
-async function addBuildingInfo(){   
+async function addBuildingInfo(){ 
+    
     
     //setting the initial state of the building info p tags
     $("#building1Info p:eq(0)").html("Current Traffic: ");
     $("#building1Info p:eq(1)").html("Busiest Time: ");
     $("#building1Info p:eq(2)").html("Average Foot Traffic: ");
+    $("#building1Info p:eq(3)").html("");
     $("#building2Info p:eq(0)").html("Current Traffic: ");
     $("#building2Info p:eq(1)").html("Busiest Time: ");
     $("#building2Info p:eq(2)").html("Average Foot Traffic: ");
-
-    $("#compareCurrentHour").append(currentHour);
-   
-    //checking that value of building 1 select is not undefined
-    /*
-    if($("#compare1").find(":selected").val() == undefined){
-        console.log("THE BUILDING UNDEFINED CHECK WORKED");
-    }
-    */
+    $("#building2Info p:eq(3)").html("");
     
+    console.log(timeReturn(currentHour));
+    $("#compareCurrentHour").html("Current Time: " + timeReturn(currentHour));
+   
+    //setting variable to day chosen
+    var day1 = "jsons/" + document.building1DateTimeForm.building1DateTime.value + ".json";
+    var day2 = "jsons/" + document.building2DateTimeForm.building2DateTime.value + ".json";
+
+    //variable for highest and lowest traffic retunr objects
+    var tempLowTrafficObject = await getLowestTraficOnDay(buildingHashTable[$("#compare1").find(":selected").val()], day1);
+    var tempHighTrafficObject = await getHighestTraficOnDay(buildingHashTable[$("#compare1").find(":selected").val()], day1);
     //getting current traffic of building 1
     var tempTraffic1 = buildingWeight.get(buildingHashTable[$("#compare1").find(":selected").val()]);
     tempTraffic1 = Math.floor(tempTraffic1/10)*10;
   
     //appending traffic and busiest time to building one info + other info
     
-    $("#building1Info p:eq(0)").append(tempTraffic1);
-    $("#building1Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare1").find(":selected").val()]));
-    $("#building1Info p:eq(2)").append(await getAverage(buildingHashTable[$("#compare1").find(":selected").val()]));
+    $("#building1Info p:eq(0)").append(await getCurrentTraffic("jsons/" + document.building1DateTimeForm.building1DateTime.value + ".json", buildingHashTable2[$("#compare1").find(":selected").val()].ABBREVIATION));
+    $("#building1Info p:eq(1)").append(tempHighTrafficObject.HOUR);
+    $("#building1Info p:eq(2)").append(await getAverageOnDay(buildingHashTable[$("#compare1").find(":selected").val()], day1) );
+    $("#building1Info p:eq(3)").append("<p>Lowest Traffic: " 
+                                + tempLowTrafficObject.TRAFFIC
+                                + " at "
+                                + timeReturn(tempLowTrafficObject.HOUR)
+                                +"</p>"
+    );
+    $("#building1Info p:eq(4)").append("<p>Highest Traffic: " 
+                                + tempHighTrafficObject.TRAFFIC
+                                + " at "
+                                + timeReturn(tempHighTrafficObject.HOUR)
+                                +"</p>"
+    );
 
-       
-    
-    
-   
-    
 
-     //getting current traffic of building 2
-     var tempTraffic2 = buildingWeight.get(buildingHashTable[$("#compare2").find(":selected").val()]);
-     tempTraffic2 = Math.floor(tempTraffic2/10)*10;
+     // setting variable for highest and lowest traffic return object to second buildiong
+     tempLowTrafficObject = await getLowestTraficOnDay(buildingHashTable[$("#compare2").find(":selected").val()], day2);
+     tempHighTrafficObject = await getHighestTraficOnDay(buildingHashTable[$("#compare2").find(":selected").val()], day2);
+
+ 
    
      //appending traffic and busiest time to building two info + other info
+     $("#building2Info p:eq(0)").append(await getCurrentTraffic("jsons/" + document.building2DateTimeForm.building2DateTime.value + ".json", buildingHashTable2[$("#compare2").find(":selected").val()].ABBREVIATION));
+     $("#building2Info p:eq(1)").append(tempHighTrafficObject.HOUR);
+     $("#building2Info p:eq(2)").append(await getAverageOnDay(buildingHashTable[$("#compare2").find(":selected").val()], day2 ));
+     $("#building2Info p:eq(3)").append("<p>Lowest Traffic: " 
+     + tempLowTrafficObject.TRAFFIC
+     + " at "
+     + timeReturn(tempLowTrafficObject.HOUR)
+     +"</p>"
      
-     $("#building2Info p:eq(0)").append(tempTraffic2);
-     $("#building2Info p:eq(1)").append(findBusiestTime(buildingHashTable[$("#compare2").find(":selected").val()]));
-     $("#building2Info p:eq(2)").append(await getAverage(buildingHashTable[$("#compare2").find(":selected").val()]));
-     //$("#building2Info p:eq(2)").append(getAverage(buildingHashTable[$("#compare1").find(":selected").val()]));
+);
+    $("#building2Info p:eq(4)").append("<p>Highest Traffic: " 
+    + tempHighTrafficObject.TRAFFIC
+    + " at "
+    + timeReturn(tempHighTrafficObject.HOUR)
+    +"</p>"
+    );
    
+    
+   
+  
 
 }
 
 
-
+//changes size of heatmap points
 function changeSize() {
     if( heatmap.get("radius") == 25){
         heatmap.set("radius",45);
@@ -2309,7 +2272,8 @@ function changeSize() {
     
 }
 
-async function changeOpacity(){
+//changes opacity of heat map pints
+ function changeOpacity(){
     
 
     if( heatmap.get("opacity") == 0.5){
@@ -2323,10 +2287,10 @@ async function changeOpacity(){
     }
     
   }
-
+  //function returns average traffic of passed building 
+  //building in this case is being sent as the abbreviation used in JSON files
   async function getAverage(building){
-    console.log("starting get average");
-   
+
     var total = 0;
     //get the json file
     await $.ajax({
@@ -2367,16 +2331,325 @@ async function changeOpacity(){
     });
 
     return Math.floor(total);
-
     
-  
+  }
+  //same as getAVerage but with specific day
+  async function getAverageOnDay(building, day){
 
+    var total = 0;
+    //get the json file
+    await $.ajax({
+        type: "get",
+        //current file path if gloabl variable used in initial parse of json file for map, can be used here
+        url: day,
+        beforeSend: function() {
     
+        },
+        timeout: 10000,
+        error: function(xhr, status, error) {
+            alert("Error 111: " + xhr.status + " - " + error);
+        },
+        dataType: "json",
+        success:  function(data) {
+            //console.log(data);
+            
+            //parse through each hour
+              $.each(data,  function(){
+               
+                //find building we are currently looking for
+                 $.each(this, function(key,value){
+                    if(key == building){
+                        
+                        //add current foot traffic to variable
+                        total += value;
+                    }
 
-    
+                });
+                
+                
+            });
+            //get average by diving by 24 for 24 hours
+            total = total/24
+        }
 
+        
+    });
+
+    return Math.floor(total);
     
   }
 
+    //function returns lowest traffic of passed building 
+    //building in this case is being sent as the abbreviation used in JSON files
+    async function getLowestTrafic(building){
+       console.log(building);
+     
+        
+        var lowest =  await getAverage(building);
+        var hour = 0;
+      
+        //get the json file
+        await $.ajax({
+            type: "get",
+            //current file path if gloabl variable used in initial parse of json file for map, can be used here
+            url: currentFilePath,
+            beforeSend: function() {
+        
+            },
+            timeout: 10000,
+            error: function(xhr, status, error) {
+                alert("Error: " + xhr.status + " - " + error);
+            },
+            dataType: "json",
+            success:  function(data) {
+
+                //parse through each hour
+                  $.each(data,  function(){
+                    var tempHour = this.Buildings;
+                    //find building we are currently looking for
+                     $.each(this, function(key,value){
+                        //comapring current time foot traffic to lowest variable
+                        if(key == building && value < lowest ){
+                        
+                            lowest = value;
+                            hour = tempHour;
+                        }
+    
+                    });
+                    
+                    
+                });
+                
+            }
+    
+            
+        });
+       
+        return {TRAFFIC: lowest, HOUR: hour};
+        
+      }
+      //same as getLowestTraffic above but with specific day chosen
+      async function getLowestTraficOnDay(building, day){
+        console.log(building);
+      
+         
+         var lowest =  await getAverage(building);
+         var hour = 0;
+       
+         //get the json file
+         await $.ajax({
+             type: "get",
+             //current file path if gloabl variable used in initial parse of json file for map, can be used here
+             url: day,
+             beforeSend: function() {
+         
+             },
+             timeout: 10000,
+             error: function(xhr, status, error) {
+                 alert("Error: " + xhr.status + " - " + error);
+             },
+             dataType: "json",
+             success:  function(data) {
+ 
+                 //parse through each hour
+                   $.each(data,  function(){
+                     var tempHour = this.Buildings;
+                     //find building we are currently looking for
+                      $.each(this, function(key,value){
+                         //comapring current time foot traffic to lowest variable
+                         if(key == building && value < lowest ){
+                         
+                             lowest = value;
+                             hour = tempHour;
+                         }
+     
+                     });
+                     
+                     
+                 });
+                 
+             }
+     
+             
+         });
+        
+         return {TRAFFIC: lowest, HOUR: hour};
+         
+       }
+     
+    
+    //function returns Highest traffic of passed building 
+    //building in this case is being sent as the abbreviation used in JSON files
+    //returns array with [TRAFFIC, HOUR]
+async function getHighestTrafic(building){
+
+    
+        
+        var highest =  await getAverage(building);
+        var hour = 0;
+
+    
+        //get the json file
+        await $.ajax({
+            type: "get",
+            //current file path if gloabl variable used in initial parse of json file for map, can be used here
+            url: currentFilePath,
+            beforeSend: function() {
+        
+            },
+            timeout: 10000,
+            error: function(xhr, status, error) {
+                alert("Error: " + xhr.status + " - " + error);
+            },
+            dataType: "json",
+            success:  function(data) {
+
+                //parse through each hour
+                $.each(data,  function(){
+                
+                var tempHour = this.Buildings;
+                    //find building we are currently looking for
+                    $.each(this, function(key,value){
+                        //comapring current time foot traffic to lowest variable
+                        if(key == building && value > highest ){
+                        
+                            highest = value;
+                            hour = tempHour    ;
+                        }
+    
+                    });
+                    
+                    
+                });
+                
+            }
+    
+            
+        });
+    
+        return {TRAFFIC: highest, HOUR: hour};
+        
+    }
+//same as getHighestTraffic above but with specific day chosen
+async function getHighestTraficOnDay(building, day){
+
+
+    
+var highest =  await getAverage(building);
+var hour = 0;
+
+
+//get the json file
+await $.ajax({
+    type: "get",
+    //current file path if gloabl variable used in initial parse of json file for map, can be used here
+    url: day,
+    beforeSend: function() {
+
+    },
+    timeout: 10000,
+    error: function(xhr, status, error) {
+        alert("Error: " + xhr.status + " - " + error);
+    },
+    dataType: "json",
+    success:  function(data) {
+
+        //parse through each hour
+            $.each(data,  function(){
+            
+            var tempHour = this.Buildings;
+            //find building we are currently looking for
+                $.each(this, function(key,value){
+                //comapring current time foot traffic to lowest variable
+                if(key == building && value > highest ){
+                    
+                    highest = value;
+                    hour = tempHour    ;
+                }
+
+            });
+            
+            
+        });
+        
+    }
+
+    
+});
+
+return {TRAFFIC: highest, HOUR: hour};
+
+}
+     
+       
+//this is a fucntion to get current traffic, the map already gets the current traffic on the intial get data
+//Other functions also use the getData population of building weight for current traffic
+//This function is returning current traffic for cases in which we are using a different day from the map selected choice
+//such as in the compare buildings menu
+//day passed is the json file path while building is abbreviation of selected building
+//For now, function will only use current hour that is being used by map
+  async function getCurrentTraffic(day, building){
+    
+    let tempData = [];
+    //get the json file
+    await $.ajax({
+        type: "get",
+        //current file path is passed as day
+        url: day,
+        beforeSend: function() {
+    
+        },
+        timeout: 10000,
+        error: function(xhr, status, error) {
+            alert("Error: " + xhr.status + " - " + error);
+        },
+        dataType: "json",
+        success:  function(data) {
+            //grabbing cuyrrent hour
+             tempData = data[currentHour];
+            
+            
+            
+        }
+
+        
+    });
   
-  
+    return tempData[building];
+    
+  }
+//changes words in time Button 
+function timeButtonStateChange(){
+    if($("#timeButton").attr("value") == "24 Hour"){
+        $("#timeButton").attr("value", "12 Hour");
+    }else{
+        $("#timeButton").attr("value", "24 Hour");
+    }
+}
+
+//function to return time in 24 or 12 hour format, time is passed as string,
+function timeReturn(time){
+    
+    if(document.timeButtonForm.timeButton.value == "24 Hour"){
+        return time;
+    }else{
+        if(+time == 0){
+            
+            return "1 AM"
+        }
+        else if(+time == 12){
+            return "12 PM"
+        }
+        else if(+time < 13){
+            return time + " AM"
+        }
+        //if time is above 12
+        else{
+            var temp = +time - 12;
+            return temp.toString() + " PM"
+        }
+    }
+    
+
+}
+
