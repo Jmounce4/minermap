@@ -1,17 +1,6 @@
-//changed the fill to fill the new div, make a new menu so users can select from there instead the slider menu plugin, make the building names not all uppercase
-//add other options aprt from color: restaurants, point size, turn off maybe
-//TODO for Elvis: make a find busy and least busy time with a time range
-//create function to get average and highest traffic
-
-/*
-
-- add time converter for 24 to 12, do thi sby creating funciton that converts, add option button beside the others 
-- add comapre on different days
-
-*/
 
 $(document).ready(function(){
-
+    //intitial setup of map
     mapRefresh();
 
     $("#type").selectmenu();
@@ -127,16 +116,6 @@ function changePic() {
         colorKey.setAttribute('src', "legend.jpg");
     }
 }
-//for testing stuff dont touch please - Elvis
-var x = 1 
-function testFunction(){
-    x += 1;
-    console.log(x);
-    var testDate = document.dtSelection.dateTime.value;
-    console.log(testDate);
-    
-    
-}
 
 const UNCC_BOUNDS = {
     north: 35.315700,
@@ -144,8 +123,6 @@ const UNCC_BOUNDS = {
     west: -80.746187,
     east: -80.724543,
 };
-
-
 
 var styles = [
         {
@@ -182,11 +159,6 @@ let restaurantHashTable = {
     SOVI: {BUILDING: "SOVI", NAME: "SoVi"},
     PANDA: {BUILDING: "CONE", NAME: "Panda Express"},
     SUBWAY: {BUILDING: "CONE", NAME: "Subway"},
-
-
-
-
-
 
 
 }
@@ -230,7 +202,7 @@ let buildingHashTable = {
 //CATO is placing markers in wrong area, just keep CoEd
     
 }
-
+//building hashtable 2 contains uncapitalized names of buildings to use in charts and such
 let buildingHashTable2 = {
     UREC: {ABBREVIATION:"UREC", NAME: "UREC"},
     ATKINS:{ABBREVIATION:"Atki", NAME: "Atkins Library"} ,
@@ -251,7 +223,6 @@ let buildingHashTable2 = {
     PORTAL: {ABBREVIATION:"PORT", NAME: "Portal"},
     GRIGG: {ABBREVIATION:"Grig", NAME: "Grigg"},
     SOVI: {ABBREVIATION:"SVDH", NAME: "Sovi"},
-    //CATO: "Cato",
     CHHS: {ABBREVIATION:"Heal", NAME: "College of Health Services"},
     KING: {ABBREVIATION:"King", NAME: "King"},
     KENNEDY: {ABBREVIATION:"Kenn", NAME: "Kennedy"},
@@ -277,9 +248,8 @@ var myList = [];
 var heatMapPoints = [];
 let temp;
 let tempString;
-//the idea is too set the cordinates in a map and the amounts in a map that will be refreshed on day change or hour change
-//we will probably need a conversion table/map to convert the abbreviated names to cordinate names OR we can just use abreviated names
-//for now we would hard code each location cordinate into the maps then get them when creating the locations for the heat map
+
+//Below are the cordiantes for each building as well as the building weight map that will be filled by using info from the JSON file
 var cordinateMapX = new Map();
 var cordinateMapY = new Map();
 var buildingWeight = new Map();
@@ -587,10 +557,8 @@ const storrsShapeCoords = [
 
 
 
-//Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
 
-
-
+//function parses through the json for the day and then fills out the building weight map
 async function getData(jsonFile, hour){
 
 //fetching json file and parsing information to  myList, testvar is basically the foot traffic for the hour passed 
@@ -603,33 +571,30 @@ for(let iso of tempJson){
     await myList.push(iso);
 
 }
+//Accessing the right hour is easy, the way the json is made, jsut use list[hour] in 0-23 format to get the hour desired
 let testvar = await myList[hour];
-console.log(testvar);
+
 
 
 //loop through each builing in building table and set the weights
 
 for (var prop in buildingHashTable){
-    console.log(buildingHashTable[prop]);
+  
     buildingWeight.set(buildingHashTable[prop], testvar[buildingHashTable[prop]]);
     
 }
 
-console.log("getData DONE");
 
 
 }
 
 
-
-
-//reminder on hour/time change the building weight and map needs to be refreshed to do tommorow 10/26
-
+//map init
 let heatmap;
 function initMap() {
    
    
-    console.log("INIT MAP start");
+
   
 
     //adding the locations to the heatmap points based on the buildings in the building hash table
@@ -1829,10 +1794,6 @@ function initMap() {
 
 
 
-   console.log("INIT MAP DONE");
-
-
-
 }
 
 
@@ -1845,23 +1806,14 @@ async function mapRefresh(){
     buildingWeight.clear();
     currentFilePath = "jsons/" + document.dtSelection.dateTime.value.substr(0,10) + ".json";
     currentHour = (document.dtSelection.dateTime.value.substr(11,11).substr(0,2));
-    console.log("FilePath: ", currentFilePath, (document.dtSelection.dateTime.value.substr(11,11).substr(0,2)));
-
     //since getData is asynchronous, we use a then function to initiate the map
     getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList).then(addBuildingInfo);
- 
-    
-    
-
 
 }
 
-
-
-
 //function will fill out the list using current data
 async function fillList(){
-    //$('#infoDiv').html("");
+  
     var html = "<input class=customExitButton type=button value=Exit id=customInfoDivExit>";
     html +="<table class=customTable><tr><th>Building</th><th>Current Traffic</th><th>Average Traffic</th><th>Busiest Time</th><th>Quietist Time</th></tr>";
     html += "<tbody>";
@@ -1907,21 +1859,6 @@ async function fillList(){
     });
   
 }
-
-
-//function to get key from value in buildings map, x is the current value being used
-function getKey(x){
-    //going to loop through map until we find the value
-    for (var prop in buildingHashTable){
-        if(buildingHashTable[prop] === x){
-            return prop;
-        }
-        //buildingWeight.set(buildingHashTable[prop], testvar[buildingHashTable[prop]]);
-        
-    }
-    return null;
-}
-
 
 
 //Find the busiest time for for building that day
@@ -2045,7 +1982,9 @@ function changeGradient() {
     }
 
     html += "<tbody></table>"
+    //adding html to div
     $('#customInfoDiv').html(html);
+    //setting functionality for exit button on div
     $("#customInfoDivExit, #optionsMenuButton").click(function(){
 
         $(".customInfoDiv").hide();
@@ -2054,12 +1993,11 @@ function changeGradient() {
     
   }
 
+//function for generating a recommendation on recommend div
 function generateReccomendation(){
 
     //getting selceted options from user
   
-    //console.log($("#time1").find(":selected").val());
-    //console.log($("#time2").find(":selected").val());
     var time1 = parseFloat($("#time1").find(":selected").val());
     var time2 = parseFloat($("#time2").find(":selected").val());
 
@@ -2081,14 +2019,7 @@ function generateReccomendation(){
         }else{
             //if building exist in hashtable, update its value with traffic from current hour
             buildingAverages.set(building, buildingAverages.get(building) + myList[time1][buildingHashTable[building]]);
-        }
-            /*
-            if(building == "UREC"){
-                continue;
-            }
-            */
-            //grabbing the currents traffic from list of traffic (myList) and comparing it to leastBusyBuilding, 
-            //if less least busy building will be changed to the one with less traffic
+        }   
            
             
         }
@@ -2151,9 +2082,9 @@ function generateReccomendation(){
 
 //filling selects with buildings in buildings hashtable
 function fillCompareSelect(){
-    console.log("RAN  CMOAPRE FIL");
+   
     for(var building in buildingHashTable2){
-        console.log(building);
+      
         $("#compare1").append(
             "<option value ="
             //value set to current building from loop
@@ -2179,7 +2110,7 @@ function fillCompareSelect(){
     $("#compare2").selectmenu("refresh");
 }
 
-//adding selected building info to 
+//adding selected building info to compare div
 async function addBuildingInfo(){ 
     
     
@@ -2193,7 +2124,7 @@ async function addBuildingInfo(){
     $("#building2Info p:eq(2)").html("Average Foot Traffic: ");
     $("#building2Info p:eq(3)").html("");
     
-    console.log(timeReturn(currentHour));
+
     $("#compareCurrentHour").html("Current Time: " + timeReturn(currentHour));
    
     //setting variable to day chosen
@@ -2430,7 +2361,7 @@ function changeSize() {
       }
       //same as getLowestTraffic above but with specific day chosen
       async function getLowestTraficOnDay(building, day){
-        console.log(building);
+        
       
          
          var lowest =  await getAverage(building);
