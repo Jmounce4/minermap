@@ -329,7 +329,7 @@ cordinateMapY.set(buildingHashTable.STORRS, -80.72915670025833);
 //
 //
 
-
+//These coords are used with the Google maps API to create shape objects for each building
 const urecShapeCoords = [
     { lat: 35.308432253929754, lng: -80.73583374185519 }, // Top left
     { lat: 35.308432253929754, lng: -80.73493706987938 }, // Top right
@@ -554,7 +554,8 @@ const storrsShapeCoords = [
 //
 //
 //
-//
+// End of coordinates
+
 
 
 
@@ -636,251 +637,265 @@ function initMap() {
    
     const image1 = "small.png";
 
-    // INFO WINDOW INFORMATION
-//
-//
-//
+  // INFO WINDOW INFORMATION FOR EACH BUILDING
+    //
+    //
+    //
+    //
 
-
-
+    //These strings are used in the Google maps API info cards
+    //They provide hourly traffic, busiest hours, building use, and address of each building
     const urecString = '<h1> University Recreational Center </h1>' +
-        '<p>Average Hourly Traffic: '+ 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["UREC"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["UREC"]) +
         '<p>Building Use: Student Services</p>' +
         '<p>Address: 8827 CRAVER RD, Charlotte NC 28223 </p>';
 
     const atkinsString = '<h1> J. Murrey Atkins Library </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["ATKINS"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ATKINS"]) +
         '<p>Building Use: Student Services</p>' +
         '<p>Address: 410 LIBRARY LN, Charlotte NC 28223 </p>';
 
     const belkString = '<h1> Belk Gym </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["BELKGYM"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BELKGYM"]) +
         '<p>Building Use: Student Services</p>' +
         '<p>Address: 8911 University Rd, Charlotte, NC 28223 </p>';
 
     const studentUnionString = '<h1> Student Union </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["STUDENTUNION"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["STUDENTUNION"]) +
         '<p>Building Use: Student Services</p>' +
         '<p>Address: 8845 Craver RD, Charlotte NC 28223 </p>';
 
     const bursonString = '<h1> Burson </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["BURSON"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BURSON"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9006 CRAVER RD, Charlotte NC 28223 </p>';
 
     const cameronString = '<h1> Cameron </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["CAMERON"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CAMERON"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9010 CRAVER RD, Charlotte NC 28223 </p>';
 
     const dennyString = '<h1> Denny </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["DENNY"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DENNY"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9125 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const colvardString = '<h1> Colvard </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["COLVARD"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COLVARD"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9105 UNIVERSITY RD, Charlotte NC 28223 </p>';
 
     const dukeString = '<h1> Duke Centennial Hall </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["DUKE"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["DUKE"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9330 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
 
     const epicString = '<h1> EPIC </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["EPIC"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["EPIC"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 8700 Phillips Rd, Charlotte, NC 28223 </p>';
 
     const prospectorString = '<h1> Prospector </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["PROSPECTOR"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PROSPECTOR"]) +
         '<p>Building Use:  Student Services</p>' +
         '<p>Address: Library Ln, Charlotte, NC 28223 </p>';
 
     const woodwardString = '<h1> Woodward Hall </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["WOODWARD"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WOODWARD"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 8812 CRAVER RD, Charlotte NC 28223 </p>';
 
     const bioinformaticsString = '<h1> Bioinformatics </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["BIOINFORMATICS"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BIOINFORMATICS"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9331 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
 
     const coedString = '<h1> Cato College of Education </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["COED"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["COED"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 8838 Craver Rd, Charlotte, NC 28223 </p>';
 
     const coneString = '<h1> Cone </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["CONE"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CONE"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9025 University Rd, Charlotte, NC 28223 </p>';
 
     const fretwellString = '<h1> Fretwell </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["FRETWELL"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRETWELL"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9203 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const portalString = '<h1> PORTAL </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["PORTAL"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["PORTAL"]) +
         '<p>Building Use: Auxiliary</p>' +
         '<p>Address: 9319 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
 
     const griggString = '<h1> Grigg Hall </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["GRIGG"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GRIGG"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9320 Robert D. Snyder Rd, Charlotte, NC 28223 </p>';
 
     const soviString = '<h1> Sovi </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["SOVI"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["SOVI"]) +
         '<p>Building Use: Student Services</p>' +
         '<p>Address: 8917 Johnson Alumni Way, Charlotte, NC 28262 </p>';
 
     const chhsString = '<h1> College of Health and Human Services </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["CHHS"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["CHHS"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 8844 Craver Rd, Charlotte, NC 28223 </p>';
 
     const kingString = '<h1> King </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["KING"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KING"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9037 University Rd, Charlotte, NC 28223 </p>';
 
     const kennedyString = '<h1> Kennedy </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["KENNEDY"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["KENNEDY"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9214 South, Library Ln, Charlotte, NC 28223 </p>';
 
     const roweString = '<h1> Rowe </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["ROWE"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROWE"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9119 University Rd, Charlotte, NC 28223 </p>';
 
     const mceniryString = '<h1> McEniry </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["MCENIRY"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MCENIRY"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9215 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const fridayString = '<h1> Belk College of Business (Friday) </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["FRIDAY"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["FRIDAY"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9209 Mary Alexander Rd, Charlotte, NC 28262 </p>';
 
     const barnardString = '<h1> Barnard </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["BARNARD"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["BARNARD"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9129 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const macyString = '<h1> Macy </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["MACY"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["MACY"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9224 Library Ln, Charlotte, NC 28262 </p>';
 
     const garingerString = '<h1> Garinger </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["GARINGER"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["GARINGER"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9121 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const winninghamString = '<h1> Winningham </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["WINNINGHAM"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["WINNINGHAM"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9236 SOUTH, Library Ln, Charlotte, NC 28223 </p>';
 
     const robinsonString = '<h1> Robinson </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["ROBINSON"]) +
         '<p>Busiest Hours: ' + findBusiestTime(buildingHashTable["ROBINSON"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9027 Mary Alexander Rd, Charlotte, NC 28223 </p>';
 
     const storrsString = '<h1> Storrs School of Architecture </h1>' +
-        '<p>Average Hourly Traffic: ' + 1 +
+        '<p>Average Hourly Traffic: ' + findAverageTraffic(buildingHashTable["STORRS"]) +
         '<p>Busiest Hours: ' +  findBusiestTime(buildingHashTable["STORRS"]) +
         '<p>Building Use: Instruction & Research</p>' +
         '<p>Address: 9115 Mary Alexander Rd, Charlotte, NC 28262 </p>';
 
-//
-//
-//
-//
-
-
-    //All of this must be done in initmap, since it is all google maps related objects
-    // This establishes all shapes, markers, info windows, and onclick events for each building
-    //
+    // End of info strings for buildings
     //
     //
     //
 
-
-
+    
+    
+    
+      //All of this must be done in initmap, since it is all google maps related objects
+    //This establishes all shapes, markers, info windows, and onclick events for each building
+    //
+    //
+    //
+    //
+    
+    //UREC
+    
+    //This is a shape made in the Google Maps API. The paths are the coordinates of each corner
+    //strokeOpacity and fillOpacity make the shape invisible since the user can see the building and click on it
     const urecShape = new google.maps.Polygon({
         paths: urecShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     urecShape.setMap(map);
+
+    //This is a Google Maps API info window, which is using the before created info strings for each building
     const urecWindow = new google.maps.InfoWindow({
         content: urecString,
         ariaLabel: "urec",
     });
+
+    //This is a Google Maps API marker, which is critical for opening the info window via on click event
+    //It's position is set to the building
+    //The marker is invisible and is where the info window will actually show up when the building shape is clicked
     const urecMarker = new google.maps.Marker({
         position: {lat: cordinateMapX.get(buildingHashTable["UREC"]), lng: cordinateMapY.get(buildingHashTable["UREC"])},
         map,
         icon: image1,
         visible: false,
     });
+
+    //This adds a listener for when the user clicks on the shape of the building
+    //The click prompts the infowindow to open where the marker for the building is
     urecShape.addListener("click", () => {
         urecWindow.open({
             anchor: urecMarker,
             map,
         });
     });
+
+    //This listener causes info windows to close when the user clicks somewhere else on the map
     google.maps.event.addListener(map, "click", function(event) {
         urecWindow.close();
     });
 
 
+    //The rest of the buildings follow the exact same process for creating
+    //Shapes, Info windows, and markers, as well as the events to use them
+
+    //Atkins
 
     const atkinsShape = new google.maps.Polygon({
         paths: atkinsShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     atkinsShape.setMap(map);
@@ -904,12 +919,11 @@ function initMap() {
         atkinsWindow.close();
     });
 
+    //Belk
+
     const belkShape = new google.maps.Polygon({
         paths: belkShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     belkShape.setMap(map);
@@ -932,12 +946,12 @@ function initMap() {
     google.maps.event.addListener(map, "click", function(event) {
         belkWindow.close();
     });
+
+    //Student Union
+
     const studentUnionShape = new google.maps.Polygon({
         paths: studentUnionShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     studentUnionShape.setMap(map);
@@ -961,14 +975,11 @@ function initMap() {
         studentUnionWindow.close();
     });
 
-
+    //Burson
 
     const bursonShape = new google.maps.Polygon({
         paths: bursonShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     bursonShape.setMap(map);
@@ -992,14 +1003,11 @@ function initMap() {
         bursonWindow.close();
     });
 
-
+    //Cameron
 
     const cameronShape = new google.maps.Polygon({
         paths: cameronShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     cameronShape.setMap(map);
@@ -1024,14 +1032,11 @@ function initMap() {
     });
 
 
-//NEW PASTE
+    //DENNY
 
     const dennyShape = new google.maps.Polygon({
         paths: dennyShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     dennyShape.setMap(map);
@@ -1055,12 +1060,11 @@ function initMap() {
         dennyWindow.close();
     });
 
+    //Colvard
+
     const colvardShape = new google.maps.Polygon({
         paths: colvardShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     colvardShape.setMap(map);
@@ -1084,7 +1088,7 @@ function initMap() {
         colvardWindow.close();
     });
 
-
+    //Duke
 
     const dukeShape = new google.maps.Polygon({
         paths: dukeShapeCoords,
@@ -1115,14 +1119,11 @@ function initMap() {
         dukeWindow.close();
     });
 
-
+    //EPIC
 
     const epicShape = new google.maps.Polygon({
         paths: epicShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     epicShape.setMap(map);
@@ -1146,14 +1147,11 @@ function initMap() {
         epicWindow.close();
     });
 
-
+    //Prospector
 
     const prospectorShape = new google.maps.Polygon({
         paths: prospectorShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     prospectorShape.setMap(map);
@@ -1176,12 +1174,12 @@ function initMap() {
     google.maps.event.addListener(map, "click", function(event) {
         prospectorWindow.close();
     });
+
+    //Woodward
+
     const woodwardShape = new google.maps.Polygon({
         paths: woodwardShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     woodwardShape.setMap(map);
@@ -1205,14 +1203,11 @@ function initMap() {
         woodwardWindow.close();
     });
 
-
+    //Bioinformatics
 
     const bioinformaticsShape = new google.maps.Polygon({
         paths: bioinformaticsShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     bioinformaticsShape.setMap(map);
@@ -1236,14 +1231,11 @@ function initMap() {
         bioinformaticsWindow.close();
     });
 
-
+    //Cato College of Education
 
     const coedShape = new google.maps.Polygon({
         paths: coedShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     coedShape.setMap(map);
@@ -1266,12 +1258,12 @@ function initMap() {
     google.maps.event.addListener(map, "click", function(event) {
         coedWindow.close();
     });
+
+    //Cone
+
     const coneShape = new google.maps.Polygon({
         paths: coneShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     coneShape.setMap(map);
@@ -1295,14 +1287,11 @@ function initMap() {
         coneWindow.close();
     });
 
-
+    //Fretwell
 
     const fretwellShape = new google.maps.Polygon({
         paths: fretwellShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     fretwellShape.setMap(map);
@@ -1326,14 +1315,11 @@ function initMap() {
         fretwellWindow.close();
     });
 
-
+    //PORTAL
 
     const portalShape = new google.maps.Polygon({
         paths: portalShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     portalShape.setMap(map);
@@ -1357,14 +1343,11 @@ function initMap() {
         portalWindow.close();
     });
 
-
+    //Grigg
 
     const griggShape = new google.maps.Polygon({
         paths: griggShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     griggShape.setMap(map);
@@ -1388,14 +1371,11 @@ function initMap() {
         griggWindow.close();
     });
 
-
+    //SOVI
 
     const soviShape = new google.maps.Polygon({
         paths: soviShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     soviShape.setMap(map);
@@ -1419,14 +1399,11 @@ function initMap() {
         soviWindow.close();
     });
 
-
+    //College of Health and Human Services (CHHS)
 
     const chhsShape = new google.maps.Polygon({
         paths: chhsShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     chhsShape.setMap(map);
@@ -1450,14 +1427,11 @@ function initMap() {
         chhsWindow.close();
     });
 
-
+    //King
 
     const kingShape = new google.maps.Polygon({
         paths: kingShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     kingShape.setMap(map);
@@ -1481,14 +1455,11 @@ function initMap() {
         kingWindow.close();
     });
 
-
+    //Kennedy
 
     const kennedyShape = new google.maps.Polygon({
         paths: kennedyShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     kennedyShape.setMap(map);
@@ -1512,14 +1483,11 @@ function initMap() {
         kennedyWindow.close();
     });
 
-
+    //Rowe
 
     const roweShape = new google.maps.Polygon({
         paths: roweShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     roweShape.setMap(map);
@@ -1543,13 +1511,11 @@ function initMap() {
         roweWindow.close();
     });
 
+    //McEniry
 
     const mceniryShape = new google.maps.Polygon({
         paths: mceniryShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     mceniryShape.setMap(map);
@@ -1573,14 +1539,11 @@ function initMap() {
         mceniryWindow.close();
     });
 
-
+    //Friday
 
     const fridayShape = new google.maps.Polygon({
         paths: fridayShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     fridayShape.setMap(map);
@@ -1603,12 +1566,12 @@ function initMap() {
     google.maps.event.addListener(map, "click", function(event) {
         fridayWindow.close();
     });
+
+    //Barnard
+
     const barnardShape = new google.maps.Polygon({
         paths: barnardShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     barnardShape.setMap(map);
@@ -1632,13 +1595,11 @@ function initMap() {
         barnardWindow.close();
     });
 
+    //Macy
 
     const macyShape = new google.maps.Polygon({
         paths: macyShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     macyShape.setMap(map);
@@ -1662,12 +1623,11 @@ function initMap() {
         macyWindow.close();
     });
 
+    //Garinger
+
     const garingerShape = new google.maps.Polygon({
         paths: garingerShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     garingerShape.setMap(map);
@@ -1691,14 +1651,11 @@ function initMap() {
         garingerWindow.close();
     });
 
-
+    //Winningham
 
     const winninghamShape = new google.maps.Polygon({
         paths: winninghamShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     winninghamShape.setMap(map);
@@ -1722,14 +1679,11 @@ function initMap() {
         winninghamWindow.close();
     });
 
-
+    //Robinson
 
     const robinsonShape = new google.maps.Polygon({
         paths: robinsonShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     robinsonShape.setMap(map);
@@ -1753,14 +1707,11 @@ function initMap() {
         robinsonWindow.close();
     });
 
-
+    //Storrs
 
     const storrsShape = new google.maps.Polygon({
         paths: storrsShapeCoords,
-        strokeColor: "#FF0000",
         strokeOpacity: 0.0,
-        strokeWeight: 1,
-        fillColor: "#085212",
         fillOpacity: 0.0,
     });
     storrsShape.setMap(map);
@@ -1784,14 +1735,13 @@ function initMap() {
         storrsWindow.close();
     });
 
+
     //
     //
     //
     //
     //
-    //
-    //
-//End of all info windows+markers etc.
+    //End of all info windows+markers etc.
 
 
 
@@ -1892,6 +1842,28 @@ function findBusiestTime(building){
     return busiestHour;
     
    
+}
+
+//Needed to write this function for building info card, gets average traffic for the day
+function findAverageTraffic(building){
+    var sum = 0;
+    var average = 0;
+    for(var list in myList){
+        //next we need to grab each traffic for the current building and then return the max or min
+        //grabbing list for hour
+        let tempHour = myList[list];
+        //grabbing traffic for building at current hour
+        let tempTraffic = tempHour[building];
+
+
+        sum = sum+tempTraffic;
+
+
+    };
+    average = sum/24;
+
+    return parseInt(average);
+
 }
 
 function findQuietistTime(building){
