@@ -1816,7 +1816,7 @@ async function mapRefresh(){
     currentFilePath = "jsons/" + document.dtSelection.dateTime.value.substr(0,10) + ".json";
     currentHour = (document.dtSelection.dateTime.value.substr(11,11).substr(0,2));
     //since getData is asynchronous, we use a then function to initiate the map
-    getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList).then(addBuildingInfo);
+    getData(currentFilePath, +currentHour).then(window.initMap = initMap).then(fillList).then(addBuildingInfo).then(fillRestaurantList);
 
 }
 
