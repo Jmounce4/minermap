@@ -26,6 +26,8 @@ $(document).ready(function(){
     //Time Button Functionality
     $("#timeButton").click(function(){
         timeButtonStateChange();
+        mapRefresh();
+
     });
     let colorKey = document.getElementById("colorKey");
     let gradientButton = document.getElementById("gradientButton");
@@ -1799,6 +1801,13 @@ function initMap() {
 
 //this resets variables and refreshes the actual map
 async function mapRefresh(){
+
+     //hiding menu divs in case they are open from previous activity
+     $(".infoDiv").hide();
+     $("#reccommendDiv").hide();
+     $("#compareDiv").hide();
+     $("#customInfoDiv").hide();
+     $("#customMenuContainer").hide();
     //outputting initial time and file path
     //remember to clear aoutomated list: map points, weights
     myList = [];
